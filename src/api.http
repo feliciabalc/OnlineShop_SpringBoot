@@ -1,0 +1,70 @@
+GET http://localhost:8080/api/articles
+###
+GET http://localhost:8080/api/articles/1
+
+###
+POST /articles
+
+###
+PUT /articles/1
+
+###
+DELETE /articles/1
+
+###
+GET /articles/1/specifications
+
+###
+GET /articles/1/reviews
+
+###
+GET /specifications
+GET /specifications/1
+POST /specifications
+PUT /specifications/1
+DELETE /specifications/1
+
+
+GET /reviews
+GET /reviews/1
+POST /reviews
+PUT /reviews/1
+DELETE /reviews/1
+
+
+GET /orders
+GET /orders/1
+POST /orders
+PUT /orders/1
+DELETE /orders/1
+POST /orders/1/process
+
+
+GET /clients
+GET /clients/1
+POST /clients
+PUT /clients/1
+DELETE /clients/1
+GET /clients/1/orders
+GET /clients/1/reviews
+
+
+GET /couriers
+GET /couriers/1
+POST /couriers
+PUT /couriers/1
+DELETE /couriers/1
+
+
+GET /employees
+GET /employees/1
+POST /employees
+PUT /employees/1
+DELETE /employees/1
+
+
+GET /warehouse
+GET /warehouse/1
+POST /warehouse
+PUT /warehouse/1
+DELETE /warehouse/1
