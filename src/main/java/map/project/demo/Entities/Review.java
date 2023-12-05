@@ -1,5 +1,6 @@
 package map.project.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -25,7 +26,8 @@ public class Review {
     private Client client;
 
     @ManyToOne
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "articles_id")
+    @JsonBackReference
     private Articles article;
 
     protected Review() {}

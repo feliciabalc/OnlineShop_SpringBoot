@@ -15,7 +15,7 @@ public class Specifications {
     private boolean availability= getQuantity()>0;
 
     @ManyToOne
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "articles_id")
     private Articles article;
 
     public Specifications(Long id, String size, String color, double quantity, boolean availability) {

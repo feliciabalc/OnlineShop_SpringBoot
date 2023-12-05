@@ -1,10 +1,12 @@
 package map.project.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Employee {
     @Id
     protected Long id;
@@ -14,14 +16,15 @@ public class Employee {
     protected double telefon;
 
     @OneToMany(mappedBy = "employee")
-    protected List<Order> orders= new ArrayList<>();
+    @JsonManagedReference
+    protected List<Orders> orders= new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 
 
-    public Employee(Long id,String name, String salary, double telefon) {
+    public Employee(Long id,String name, String salary, double telefon, String role) {
         this.id = id;
         this.name = name;
         this.role = role;
@@ -73,11 +76,11 @@ public class Employee {
         this.telefon = telefon;
     }
 
-    public List<Order> getOrders() {
+    public List<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(List<Orders> orders) {
         this.orders = orders;
     }
 
@@ -96,11 +99,11 @@ public class Employee {
 
 
 
-    public void addOrders(Order order){
-        orders.add(order);
+    public void addOrders(Orders orders){
+        this.orders.add(orders);
     }
 
-    public void removeOrders(Order order){
-        orders.remove(order);
+    public void removeOrders(Orders orders){
+        this.orders.remove(orders);
     }
 }

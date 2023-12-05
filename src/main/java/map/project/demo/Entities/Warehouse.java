@@ -1,5 +1,6 @@
 package map.project.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -15,13 +16,16 @@ public class Warehouse {
     private String address;
 
     @OneToMany(mappedBy = "warehouse")
+    @JsonManagedReference
     private List<Articles> articles= new ArrayList<>();
     @OneToMany(mappedBy = "warehouse")
+    @JsonManagedReference
     private List<Employee> employees= new ArrayList<>();
     @OneToMany(mappedBy = "warehouse")
+    @JsonManagedReference
     private List<Suppliers> suppliers= new ArrayList<>();
     @OneToMany(mappedBy = "warehouse")
-
+    @JsonManagedReference
     private List<Courier> couriers= new ArrayList<>();
 
 

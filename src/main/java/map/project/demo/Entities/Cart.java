@@ -1,5 +1,6 @@
 package map.project.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -16,6 +17,7 @@ public class Cart {
 
 
     @OneToMany(mappedBy = "cart")
+    @JsonManagedReference
     private List<Articles> articles= new ArrayList<>();
 
     //private List<ClientCartObserver> observers = new ArrayList<>();

@@ -1,5 +1,6 @@
 package map.project.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -31,16 +32,15 @@ public class Articles {
     @OneToMany(mappedBy = "article")
     private List<Specifications> specifications = new ArrayList<>();
 
+
+    // The mappedBy attribute specifies the field in the Review entity
+    // that owns the relationship (i.e., the article field in the Review entity).
     @OneToMany(mappedBy = "article")
+    @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "article_order",
-            joinColumns = @JoinColumn(name = "ArticleId"),
-            inverseJoinColumns = @JoinColumn(name = "OrderId")
-    )
-    private List<Order> orders = new ArrayList<>();
+    @ManyToMany(mappedBy = "articles")
+    private List<Orders> orders = new ArrayList<>();
 
 
     @ManyToOne
@@ -127,11 +127,11 @@ public class Articles {
         this.reviews = reviews;
     }
 
-    public List<Order> getOrders() {
+    public List<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(List<Orders> orders) {
         this.orders = orders;
     }
 
@@ -151,11 +151,11 @@ public class Articles {
         reviews.remove(review);
     }
 
-    public void addOrders(Order order) {
-        orders.add(order);
+    public void addOrders(Orders orders) {
+        this.orders.add(orders);
     }
 
-    public void removeOrders(Order order) {
-        orders.remove(order);
+    public void removeOrders(Orders orders) {
+        this.orders.remove(orders);
     }
 }

@@ -1,8 +1,6 @@
 package Service;
 
-import map.project.demo.DB_Repo.OrderRepo;
 import map.project.demo.DB_Repo.ReviewRepo;
-import map.project.demo.Entities.Order;
 import map.project.demo.Entities.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

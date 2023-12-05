@@ -1,6 +1,8 @@
 GET http://localhost:8080/api/articles
 ###
-GET http://localhost:8080/api/articles/1
+GET http://localhost:8080/api/articles/8
+
+GET http://localhost:8080/api/articles/findByMaterial
 
 ###
 POST /articles

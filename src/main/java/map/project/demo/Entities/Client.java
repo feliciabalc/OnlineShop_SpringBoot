@@ -1,5 +1,6 @@
 package map.project.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,13 +14,14 @@ public class Client{
     private String  address;
     private double telefon;
     @OneToMany(mappedBy = "client")
-    private List<Order> orders= new ArrayList<>();
+    private List<Orders> orders= new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
     @OneToMany(mappedBy = "client")
+    @JsonManagedReference
     private List<Review> reviews= new ArrayList();
 
     public Client(Long id,String name, String address, double telefon) {
@@ -65,11 +67,11 @@ public class Client{
         this.telefon = telefon;
     }
 
-    public List<Order> getOrders() {
+    public List<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(List<Orders> orders) {
         this.orders = orders;
     }
 
@@ -99,12 +101,12 @@ public class Client{
         reviews.remove(review);
     }
 
-    public void addOrder(Order order){
-        orders.add(order);
+    public void addOrder(Orders orders){
+        this.orders.add(orders);
     }
 
-    public void removeOrders(Order order){
-        orders.remove(order);
+    public void removeOrders(Orders orders){
+        this.orders.remove(orders);
     }
 
     @Override

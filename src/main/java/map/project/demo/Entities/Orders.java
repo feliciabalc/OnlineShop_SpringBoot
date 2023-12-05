@@ -1,21 +1,32 @@
 package map.project.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Order {
+public class Orders {
     @Id
     private Long id;
     private double orderNumber;
     private float totalAmount;
-    private  String paymentMethod;
+    private  String PaymentMethod;
     private String address;
     private String date;
-    @ManyToMany(mappedBy = "orders")
-    private List<Articles> articles;
+
+
+    // In Orders class
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "article_order",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "article_id")
+    )
+    @JsonManagedReference
+    private List<Articles> articles = new ArrayList<>();
+
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -26,7 +37,7 @@ public class Order {
     private Employee employee;
   //  private PaymentStrategy paymentStrategy;
 
-    protected Order() {
+    protected Orders() {
 
     }
 
@@ -43,14 +54,14 @@ public class Order {
 //        return paymentStrategy;
 //    }
 
-    public Order(Long id, double orderNumber, float totalAmount, String paymentMethod, String address,
-                 String date) {
+    public Orders(Long id, double orderNumber, float totalAmount, String PaymentMethod, String Address,
+                  String Date) {
         this.id = id;
         this.orderNumber = orderNumber;
         this.totalAmount = totalAmount;
-        this.paymentMethod = paymentMethod;
-        this.address = address;
-        this.date = date;
+        this.PaymentMethod = PaymentMethod;
+        this.address = Address;
+        this.date = Date;
     }
 
 
@@ -80,11 +91,11 @@ public class Order {
     }
 
     public String getPaymentMethod() {
-        return paymentMethod;
+        return PaymentMethod;
     }
 
     public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+        this.PaymentMethod = paymentMethod;
     }
 
     public String getAddress() {
@@ -118,7 +129,7 @@ public class Order {
                 "id=" + id +
                 ", orderNumber=" + orderNumber +
                 ", totalAmount=" + totalAmount +
-                ", paymentMethod='" + paymentMethod + '\'' +
+                ", paymentMethod='" + PaymentMethod + '\'' +
                 ", address='" + address + '\'' +
                 ", date='" + date + '\'' +
                 '}';
