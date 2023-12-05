@@ -1,4 +1,4 @@
-package Service;
+package map.project.demo.Service;
 
 import map.project.demo.Entities.Articles;
 import map.project.demo.DB_Repo.ArticleRepo;
@@ -31,6 +31,10 @@ public class ArticleService {
 
     public void deleteArticle(Long id) {
         articleRepo.deleteById(id);
+    }
+
+    public List<Articles> filterByBrand(String brand){
+        return articleRepo.findByBrand(brand);
     }
 
 

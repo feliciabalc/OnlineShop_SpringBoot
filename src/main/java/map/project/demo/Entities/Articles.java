@@ -1,12 +1,15 @@
 package map.project.demo.Entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Articles {
     public Articles(Long id, String name, String brand, String material, String type, float price) {
         this.id = id;
@@ -29,14 +32,14 @@ public class Articles {
 
     }
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
     private List<Specifications> specifications = new ArrayList<>();
 
 
     // The mappedBy attribute specifies the field in the Review entity
     // that owns the relationship (i.e., the article field in the Review entity).
     @OneToMany(mappedBy = "article")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToMany(mappedBy = "articles")
@@ -135,8 +138,9 @@ public class Articles {
         this.orders = orders;
     }
 
-    public void addSpecifications(Specifications specification) {
+    public void addSpecification(Specifications specification) {
         specifications.add(specification);
+        specification.setArticle(this);
     }
 
     public void removeSpecifications(Specifications specification) {

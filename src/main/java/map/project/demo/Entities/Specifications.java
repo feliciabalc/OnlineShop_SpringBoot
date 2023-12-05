@@ -1,11 +1,14 @@
 package map.project.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Specifications {
     @Id
     private Long id;
@@ -86,5 +89,9 @@ public class Specifications {
         if(this.availability == true)
             return true;
         return false;
+    }
+
+    public void setArticle(Articles articles) {
+        this.article= articles;
     }
 }

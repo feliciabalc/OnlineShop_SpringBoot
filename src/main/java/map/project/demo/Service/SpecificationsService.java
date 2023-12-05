@@ -1,4 +1,4 @@
-package Service;
+package map.project.demo.Service;
 
 import map.project.demo.DB_Repo.ReviewRepo;
 import map.project.demo.DB_Repo.SpecificationsRepo;

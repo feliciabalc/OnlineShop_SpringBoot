@@ -1,6 +1,5 @@
-package Service;
+package map.project.demo.Service;
 
-import map.project.demo.DB_Repo.CartRepo;
 import map.project.demo.DB_Repo.ClientRepo;
 import map.project.demo.Entities.Cart;
 import map.project.demo.Entities.Client;

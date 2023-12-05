@@ -5,68 +5,142 @@ GET http://localhost:8080/api/articles/8
 GET http://localhost:8080/api/articles/findByMaterial
 
 ###
-POST /articles
+POST http://localhost:8080/api/articles/
+
+{
+  "name": "tricou",
+  "brand": "adidas",
+  "material": "bumbac",
+  "type": "crop top",
+  "price": 100,
+  "cart_id": null,
+  "warehouse_id": null
+}
+
 
 ###
 PUT /articles/1
 
 ###
-DELETE /articles/1
+DELETE http://localhost:8080/api/articles/8
 
 ###
-GET /articles/1/specifications
+GET http://localhost:8080/api/articles/7GET http://localhost:8080/api/articles/1/specifications/specifications
 
 ###
-GET /articles/1/reviews
+GET http://localhost:8080/api/articles/1/reviews
 
 ###
-GET /specifications
-GET /specifications/1
-POST /specifications
-PUT /specifications/1
-DELETE /specifications/1
+GET http://localhost:8080/api/specifications
 
+###
 
-GET /reviews
-GET /reviews/1
-POST /reviews
-PUT /reviews/1
-DELETE /reviews/1
+GET http://localhost:8080/api/specifications/5
 
+###
+POST http://localhost:8080/api/specifications
 
-GET /orders
-GET /orders/1
-POST /orders
-PUT /orders/1
-DELETE /orders/1
-POST /orders/1/process
+###
+PUT http://localhost:8080/api/specifications/5
 
+###
+DELETE http://localhost:8080/api/specifications/5
 
-GET /clients
-GET /clients/1
-POST /clients
-PUT /clients/1
-DELETE /clients/1
-GET /clients/1/orders
-GET /clients/1/reviews
+###
+GET http://localhost:8080/api/review
 
+###
+GET http://localhost:8080/api/review/7
 
-GET /couriers
-GET /couriers/1
-POST /couriers
-PUT /couriers/1
-DELETE /couriers/1
+###
+POST http://localhost:8080/api/review
 
+###
+PUT http://localhost:8080/api/review/7
 
-GET /employees
-GET /employees/1
-POST /employees
-PUT /employees/1
-DELETE /employees/1
+###
+DELETE http://localhost:8080/api/review/7
 
+###
+GET http://localhost:8080/api/order
 
-GET /warehouse
-GET /warehouse/1
-POST /warehouse
-PUT /warehouse/1
-DELETE /warehouse/1
+###
+GET http://localhost:8080/api/order/13
+
+###
+POST /http://localhost:8080/api/order
+
+###
+PUT http://localhost:8080/api/order/13
+
+###
+DELETE http://localhost:8080/api/order/13
+
+###
+POST http://localhost:8080/api/order/13/process
+
+###
+GET http://localhost:8080/api/client
+
+###
+GET http://localhost:8080/api/client/7
+
+###
+POST http://localhost:8080/api/client
+
+###
+PUT http://localhost:8080/api/client/7
+
+###
+DELETE http://localhost:8080/api/client/7
+
+###
+GET http://localhost:8080/api/client/7/orders
+
+###
+GET http://localhost:8080/api/client/7/reviews
+
+###
+GET http://localhost:8080/api/courier
+
+###
+GET http://localhost:8080/api/courier/1
+
+###
+POST http://localhost:8080/api/courier
+
+###
+PUT http://localhost:8080/api/courier/1
+
+###
+DELETE http://localhost:8080/api/courier/1
+
+###
+GET http://localhost:8080/api/employee
+
+###
+GET http://localhost:8080/api/employee/5
+
+###
+POST http://localhost:8080/api/employee
+
+###
+PUT http://localhost:8080/api/employee/5
+
+###
+DELETE http://localhost:8080/api/employee/5
+
+###
+GET http://localhost:8080/api/warehouse
+
+###
+GET http://localhost:8080/api/warehouse/6
+
+###
+POST http://localhost:8080/api/warehouse
+
+###
+PUT http://localhost:8080/api/warehouse/6
+
+###
+DELETE http://localhost:8080/api/warehouse/6
