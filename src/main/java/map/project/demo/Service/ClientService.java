@@ -59,4 +59,10 @@ public class ClientService {
         return client.getOrders();
     }
 
+
+
+    public List<Client> filteredByName(String name){
+        return clientRepo.filteredByName(name);
+    }
+
 }

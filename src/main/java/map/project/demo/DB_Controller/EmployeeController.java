@@ -70,4 +70,10 @@ public class EmployeeController {
         Employee savedEmployee = employeeService.saveEmployee(newEmployee);
         return new ResponseEntity<>(savedEmployee, HttpStatus.OK);
     }
+
+
+    @GetMapping("/filterByRole")
+    public List<Employee> filterByRole(@RequestParam String role) {
+        return employeeService.filteredByRole(role);
+    }
 }

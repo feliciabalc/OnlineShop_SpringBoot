@@ -37,6 +37,10 @@ public class ArticleService {
         return articleRepo.findByBrand(brand);
     }
 
+    public List<Articles> filterByMaterial(String material){
+        return articleRepo.filteredByMaterial(material);
+    }
+
     public void addSpecificationToArticle(Long articleId, Specifications specification) throws Exception {
         Articles article = articleRepo.findById(articleId)
                 .orElseThrow(() -> new Exception("Article not found with id " + articleId));

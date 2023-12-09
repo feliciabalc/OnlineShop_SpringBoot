@@ -75,4 +75,9 @@ public class OrderController {
         Orders savedOrder = orderService.saveOrder(newOrder);
         return new ResponseEntity<>(savedOrder, HttpStatus.OK);
     }
+
+    @GetMapping("/filterByDate")
+    public List<Orders> filterByDate(@RequestParam String date) {
+        return orderService.filteredByDate(date);
+    }
 }

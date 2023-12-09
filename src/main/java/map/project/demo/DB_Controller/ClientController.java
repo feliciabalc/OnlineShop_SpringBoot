@@ -1,10 +1,7 @@
 package map.project.demo.DB_Controller;
 
 
-import map.project.demo.Entities.Cart;
-import map.project.demo.Entities.Client;
-import map.project.demo.Entities.Orders;
-import map.project.demo.Entities.Review;
+import map.project.demo.Entities.*;
 import map.project.demo.Service.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,6 +77,11 @@ public class ClientController {
         Client savedClient = clientService.saveClient(newClient);
         return new ResponseEntity<>(savedClient, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/filterByName")
+    public List<Client> filterByName(@RequestParam String name) {
+        return clientService.filteredByName(name);
     }
 
 }

@@ -45,4 +45,8 @@ public class SupplierService {
         return supplier.getWarehouse();
     }
 
+    public List<Suppliers> filteredByName(String name) {
+        return suppliersRepo.filteredByName(name);
+    }
+
 }

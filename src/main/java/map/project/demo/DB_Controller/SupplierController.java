@@ -65,4 +65,9 @@ public class SupplierController {
         return new ResponseEntity<>(savedSupplier, HttpStatus.OK);
     }
 
+    @GetMapping("/filterByName")
+    public List<Suppliers> filterByName(@RequestParam String name) {
+        return supplierService.filteredByName(name);
+    }
+
 }

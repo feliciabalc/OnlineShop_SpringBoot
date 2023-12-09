@@ -81,4 +81,8 @@ public class WarehouseController {
         Warehouse savedWarehouse = warehouseService.saveWarehouse(newWarehouse);
         return new ResponseEntity<>(savedWarehouse, HttpStatus.OK);
     }
+    @GetMapping("/filterByAddress")
+    public List<Warehouse> filteredByAddress(@RequestParam String address) {
+        return warehouseService.filteredByAddress(address);
+    }
 }

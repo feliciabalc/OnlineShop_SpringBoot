@@ -45,4 +45,12 @@ public class ReviewService {
 
         return review.getArticle();
     }
+
+    public List<Review> filteredByStars(String stars){
+        return reviewRepo.filteredByStars(stars);
+    }
+
+    public List<Review> filteredByDate(String date){
+        return reviewRepo.filteredByDate(date);
+    }
 }

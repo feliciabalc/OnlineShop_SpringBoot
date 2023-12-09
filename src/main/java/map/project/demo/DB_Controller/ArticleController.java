@@ -53,6 +53,11 @@ public class ArticleController {
         return articleService.filterByBrand(brand);
     }
 
+    @GetMapping("/filterByMaterial")
+    public List<Articles> filterByMaterial(@RequestParam String material) {
+        return articleService.filterByMaterial(material);
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Articles> updateArticle(@PathVariable Long id, @RequestBody Articles updatedArticle) {

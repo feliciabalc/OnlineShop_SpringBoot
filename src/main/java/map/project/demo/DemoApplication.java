@@ -11,7 +11,6 @@ public class DemoApplication {
 	}
 
 	//2 pattern-uri
-	//pe maine: in controller trebuie add relatii si metodele suplimentare crud-ului, incepand din repo, in service le apelez si in controller cu get
 	//teste
 	//client cart articol
 

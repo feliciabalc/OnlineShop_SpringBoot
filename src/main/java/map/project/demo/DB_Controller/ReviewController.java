@@ -70,4 +70,14 @@ public class ReviewController {
         return new ResponseEntity<>(savedReview, HttpStatus.OK);
     }
 
+    @GetMapping("/filterByDate")
+    public List<Review> filterByDate(@RequestParam String date) {
+        return reviewService.filteredByDate(date);
+    }
+
+    @GetMapping("/filterByStars")
+    public List<Review> filterByStars(@RequestParam String stars) {
+        return reviewService.filteredByStars(stars);
+    }
+
 }

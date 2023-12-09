@@ -57,4 +57,8 @@ public class WarehouseService {
 
         return warehouse.getCouriers();
     }
+
+    public List<Warehouse> filteredByAddress(String address) {
+        return warehouseRepo.filteredByAddress(address);
+    }
 }

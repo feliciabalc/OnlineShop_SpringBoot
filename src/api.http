@@ -1,9 +1,10 @@
 GET http://localhost:8080/api/articles
 ###
 GET http://localhost:8080/api/articles/7
-
-GET http://localhost:8080/api/articles/findByMaterial
-
+###
+GET http://localhost:8080/api/articles/filterByBrand?brand=zara
+###
+GET http://localhost:8080/api/articles/filterByMaterial?material=bumbac
 
 ###
 
@@ -69,6 +70,12 @@ DELETE http://localhost:8080/api/specifications/5
 GET http://localhost:8080/api/specifications/5/articles
 
 ###
+GET http://localhost:8080/api/specifications/filterByColor?color=blue
+
+###
+GET http://localhost:8080/api/specifications/filterBySize?size=S
+
+###
 GET http://localhost:8080/api/review
 
 ###
@@ -90,6 +97,12 @@ GET http://localhost:8080/api/review/7/article
 GET http://localhost:8080/api/review/7/client
 
 ###
+GET http://localhost:8080/api/review/filterByDate?date=10.10.2023
+
+###
+GET http://localhost:8080/api/review/filterByStars?stars=5
+
+###
 GET http://localhost:8080/api/order
 
 ###
@@ -109,6 +122,8 @@ POST http://localhost:8080/api/order/13/process
 
 ###
 GET http://localhost:8080/api/order/13/articles
+###
+GET http://localhost:8080/api/order/filterByDate?date=10.12.2022
 
 ###
 GET http://localhost:8080/api/order/13/client
@@ -138,6 +153,9 @@ GET http://localhost:8080/api/client/7/orders
 GET http://localhost:8080/api/client/7/reviews
 
 ###
+GET http://localhost:8080/api/client/filterByName?name=Ion
+
+###
 GET http://localhost:8080/api/courier
 
 ###
@@ -163,6 +181,8 @@ POST http://localhost:8080/api/employee
 
 ###
 PUT http://localhost:8080/api/employee/5
+###
+GET http://localhost:8080/api/employee/filterByRole?role=billing
 
 ###
 DELETE http://localhost:8080/api/employee/5
@@ -210,6 +230,9 @@ GET http://localhost:8080/api/cart/5/client
 GET http://localhost:8080/api/supplier/5/warehouse
 
 ###
+GET http://localhost:8080/api/warehouse/filteredByAddress?address=Gruia 56
+
+###
 GET http://localhost:8080/api/supplier
 
 ###
@@ -217,3 +240,6 @@ GET http://localhost:8080/api/supplier/5
 
 ###
 DELETE http://localhost:8080/api/supplier/5
+
+###
+GET http://localhost:8080/api/supplier/filterByName?name=Silviu

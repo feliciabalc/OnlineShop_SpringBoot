@@ -52,4 +52,8 @@ public class OrderService {
 
         return order.getEmployee();
     }
+
+    public List<Orders> filteredByDate(String date){
+        return orderRepo.filteredByDate(date);
+    }
 }

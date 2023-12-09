@@ -40,4 +40,11 @@ public class SpecificationsService {
 
         return specification.getArticle();
     }
+
+    public List<Specifications> filteredByColor(String color) {
+        return specificationsRepo.filteredByColor(color);
+    }
+    public List<Specifications> filteredBySize(String size) {
+        return specificationsRepo.filteredBySize(size);
+    }
 }

@@ -51,4 +51,9 @@ public class EmployeeService {
 
         return employee.getOrders();
     }
+
+
+    public List<Employee> filteredByRole(String role){
+        return employeeRepo.filteredByRole(role);
+    }
 }

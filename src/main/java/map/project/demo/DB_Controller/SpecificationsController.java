@@ -64,5 +64,16 @@ public class SpecificationsController {
         return new ResponseEntity<>(savedSpecifications, HttpStatus.OK);
     }
 
+    @GetMapping("/filterByColor")
+    public List<Specifications> filterByColor(@RequestParam String color) {
+        return specificationsService.filteredByColor(color);
+    }
+
+    @GetMapping("/filterBySize")
+    public List<Specifications> filterBySize(@RequestParam String size) {
+        return specificationsService.filteredBySize(size);
+    }
+
+
 
 }
