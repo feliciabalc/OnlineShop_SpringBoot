@@ -1,8 +1,11 @@
 package map.project.demo.Service;
 
+import jakarta.persistence.criteria.Order;
 import map.project.demo.DB_Repo.ClientRepo;
 import map.project.demo.Entities.Cart;
 import map.project.demo.Entities.Client;
+import map.project.demo.Entities.Orders;
+import map.project.demo.Entities.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +35,28 @@ public class ClientService {
 
     public void deleteClient(Long id) {
         clientRepo.deleteById(id);
+    }
+
+
+    public Cart getCartForClient(Long clientId) throws Exception {
+        Client client= clientRepo.findById(clientId)
+                .orElseThrow(() -> new Exception("Client not found with id " + clientId));
+
+        return client.getCart();
+    }
+
+    public List<Review> getReviewForClient(Long clientId) throws Exception {
+        Client client= clientRepo.findById(clientId)
+                .orElseThrow(() -> new Exception("Client not found with id " + clientId));
+
+        return client.getReview();
+    }
+
+    public List<Orders> getOrdersForClient(Long clientId) throws Exception {
+        Client client= clientRepo.findById(clientId)
+                .orElseThrow(() -> new Exception("Client not found with id " + clientId));
+
+        return client.getOrders();
     }
 
 }

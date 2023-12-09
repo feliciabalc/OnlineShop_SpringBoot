@@ -1,7 +1,10 @@
 package map.project.demo.DB_Controller;
 
 
+import map.project.demo.Entities.Cart;
 import map.project.demo.Entities.Client;
+import map.project.demo.Entities.Orders;
+import map.project.demo.Entities.Review;
 import map.project.demo.Service.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,4 +54,32 @@ public class ClientController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @GetMapping("/{clientId}/cart")
+    public ResponseEntity<Cart> getCartForClient(@PathVariable Long clientId) throws Exception {
+        Cart cart = clientService.getCartForClient(clientId);
+        return new ResponseEntity<>(cart, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{clientId}/orders")
+    public ResponseEntity<List<Orders>> getOrdersForClient(@PathVariable Long clientId) throws Exception {
+        List<Orders> orders = clientService.getOrdersForClient(clientId);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @GetMapping("/{clientId}/review")
+    public ResponseEntity<List<Review>> getReviewForClient(@PathVariable Long clientId) throws Exception {
+        List<Review> reviews = clientService.getReviewForClient(clientId);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Client> createClient(@RequestBody Client newClient) {
+        Client savedClient = clientService.saveClient(newClient);
+        return new ResponseEntity<>(savedClient, HttpStatus.OK);
+
+    }
+
 }

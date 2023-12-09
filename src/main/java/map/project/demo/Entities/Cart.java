@@ -1,9 +1,6 @@
 package map.project.demo.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +8,7 @@ import java.util.List;
 @Entity
 public class Cart {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double quantity;
 
@@ -77,10 +75,12 @@ public class Cart {
 
     public void addArticles(Articles article){
         articles.add(article);
+        client.setCart(this);
     }
 
     public void removeArticles(Articles article){
         articles.remove(article);
+        client.setCart(null);
     }
 
 
@@ -92,6 +92,13 @@ public class Cart {
                 '}';
     }
 
+    public void setClient(Client client){
+        this.client = client;
+    }
+
+    public Client getClient(){
+        return this.client;
+    }
 
 
 

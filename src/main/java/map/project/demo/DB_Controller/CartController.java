@@ -1,6 +1,9 @@
 package map.project.demo.DB_Controller;
 
+import map.project.demo.Entities.Articles;
 import map.project.demo.Entities.Cart;
+import map.project.demo.Entities.Client;
+import map.project.demo.Entities.Orders;
 import map.project.demo.Service.CartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +42,18 @@ public class CartController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{cartId}/articles")
+    public ResponseEntity<List<Articles>> getArticlesForCart(@PathVariable Long cartId) throws Exception {
+        List<Articles> articles = cartService.getArticlesForCart(cartId);
+        return new ResponseEntity<>(articles, HttpStatus.OK);
+    }
+
+    @GetMapping("/{cartId}/client")
+    public ResponseEntity<Client> getClientsForCart(@PathVariable Long cartId) throws Exception {
+        Client client = cartService.getClientForCart(cartId);
+        return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Cart> updateCart(@PathVariable Long id, @RequestBody Cart updatedCart) {
         Cart existingCart = cartService.getCartById(id);
@@ -50,4 +65,12 @@ public class CartController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping
+    public ResponseEntity<Cart> createCart(@RequestBody Cart newCart) {
+        Cart savedCart = cartService.saveCart(newCart);
+        return new ResponseEntity<>(savedCart, HttpStatus.OK);
+
+    }
+
 }

@@ -1,7 +1,7 @@
 package map.project.demo.Service;
 
 import map.project.demo.DB_Repo.OrderRepo;
-import map.project.demo.Entities.Orders;
+import map.project.demo.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +30,26 @@ public class OrderService {
 
     public void deleteOrder(Long id) {
         orderRepo.deleteById(id);
+    }
+
+    public List<Articles> getArticlesForOrder(Long orderId) throws Exception {
+        Orders order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new Exception("Order not found with id " + orderId));
+
+        return order.getArticles();
+    }
+
+    public Client getClientForOrder(Long orderId) throws Exception {
+        Orders order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new Exception("Order not found with id " + orderId));
+
+        return order.getClient();
+    }
+
+    public Employee getEmployeeForOrder(Long orderId) throws Exception {
+        Orders order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new Exception("Order not found with id " + orderId));
+
+        return order.getEmployee();
     }
 }

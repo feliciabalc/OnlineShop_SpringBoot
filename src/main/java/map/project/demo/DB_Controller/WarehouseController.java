@@ -1,7 +1,6 @@
 package map.project.demo.DB_Controller;
 
-import map.project.demo.Entities.Cart;
-import map.project.demo.Entities.Warehouse;
+import map.project.demo.Entities.*;
 import map.project.demo.Service.CartService;
 import map.project.demo.Service.WarehouseService;
 import org.springframework.http.HttpStatus;
@@ -53,4 +52,33 @@ public class WarehouseController {
         }
     }
 
+    @GetMapping("/{warehouseId}/articles")
+    public ResponseEntity<List<Articles>> getArticlesForWarehouse(@PathVariable Long warehouseId) throws Exception {
+        List<Articles> articles= warehouseService.getArticlesForWarehouse(warehouseId);
+        return new ResponseEntity<>(articles, HttpStatus.OK);
+    }
+
+    @GetMapping("/{warehouseId}/suppliers")
+    public ResponseEntity<List<Suppliers>> getSuppliersForWarehouse(@PathVariable Long warehouseId) throws Exception {
+        List<Suppliers> suppliers= warehouseService.getSuppliersForWarehouse(warehouseId);
+        return new ResponseEntity<>(suppliers, HttpStatus.OK);
+    }
+
+    @GetMapping("/{warehouseId}/couriers")
+    public ResponseEntity<List<Courier>> getCourierForWarehouse(@PathVariable Long warehouseId) throws Exception {
+        List<Courier> couriers= warehouseService.getCouriersForWarehouse(warehouseId);
+        return new ResponseEntity<>(couriers, HttpStatus.OK);
+    }
+
+    @GetMapping("/{warehouseId}/employees")
+    public ResponseEntity<List<Employee>> getEmployeesForWarehouse(@PathVariable Long warehouseId) throws Exception {
+        List<Employee> employees= warehouseService.getEmployeesForWarehouse(warehouseId);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Warehouse> createWarehouse(@RequestBody Warehouse newWarehouse) {
+        Warehouse savedWarehouse = warehouseService.saveWarehouse(newWarehouse);
+        return new ResponseEntity<>(savedWarehouse, HttpStatus.OK);
+    }
 }

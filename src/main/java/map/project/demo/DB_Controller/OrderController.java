@@ -1,9 +1,8 @@
 package map.project.demo.DB_Controller;
 
 import jakarta.persistence.criteria.Order;
-import map.project.demo.Entities.Cart;
-import map.project.demo.Entities.Orders;
-import map.project.demo.Service.CartService;
+import map.project.demo.Entities.*;
+import map.project.demo.Service.ArticleService;
 import map.project.demo.Service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,5 +51,28 @@ public class OrderController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/{orderId}/articles")
+    public ResponseEntity<List<Articles>> getArticlesForOrder(@PathVariable Long orderId) throws Exception {
+        List<Articles> articles= orderService.getArticlesForOrder(orderId);
+        return new ResponseEntity<>(articles, HttpStatus.OK);
+    }
+    @GetMapping("/{orderId}/client")
+    public ResponseEntity<Client> getClientForOrder(@PathVariable Long orderId) throws Exception {
+        Client client= orderService.getClientForOrder(orderId);
+        return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+
+    @GetMapping("/{orderId}/employee")
+    public ResponseEntity<Employee> getEmployeeForOrder(@PathVariable Long orderId) throws Exception {
+        Employee employee= orderService.getEmployeeForOrder(orderId);
+        return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Orders> createOrder(@RequestBody Orders newOrder) {
+        Orders savedOrder = orderService.saveOrder(newOrder);
+        return new ResponseEntity<>(savedOrder, HttpStatus.OK);
     }
 }

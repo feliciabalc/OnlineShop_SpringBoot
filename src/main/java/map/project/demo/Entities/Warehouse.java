@@ -1,9 +1,7 @@
 package map.project.demo.Entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +9,18 @@ import java.util.List;
 @Entity
 public class Warehouse {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String address;
 
     @OneToMany(mappedBy = "warehouse")
-    @JsonManagedReference
     private List<Articles> articles= new ArrayList<>();
     @OneToMany(mappedBy = "warehouse")
-    @JsonManagedReference
     private List<Employee> employees= new ArrayList<>();
     @OneToMany(mappedBy = "warehouse")
-    @JsonManagedReference
     private List<Suppliers> suppliers= new ArrayList<>();
     @OneToMany(mappedBy = "warehouse")
-    @JsonManagedReference
     private List<Courier> couriers= new ArrayList<>();
 
 
@@ -64,25 +59,43 @@ public class Warehouse {
     }
 
     public void addArticles(Articles article){
-        articles.add(article);}
+        articles.add(article);
+    article.setWarehouse(this);}
 
     public void removeArticle(Articles article){
-        articles.remove(article);}
+        articles.remove(article);
+        article.setWarehouse(null);
+    }
 
     public void addEmployee(Employee employee){
-        employees.add(employee);}
+        employees.add(employee);
+        employee.setWarehouse(this);
+    }
 
     public void removeEmployee(Employee employee){
-        employees.remove(employee);}
+        employees.remove(employee);
+        employee.setWarehouse(null);
+    }
 
     public void addSuppliers(Suppliers supplier){
-        suppliers.add(supplier);}
+        suppliers.add(supplier);
+        supplier.setWarehouse(this);
+    }
 
     public void removeSuppliers(Suppliers supplier){
-        suppliers.remove(supplier);}
+        suppliers.remove(supplier);
+        supplier.setWarehouse(null);
+    }
 
     public void addCourier(Courier courier){
-        couriers.add(courier);}
+        couriers.add(courier);
+        courier.setWarehouse(this);
+    }
+
+    public void removeCourier(Courier courier){
+        couriers.remove(courier);
+        courier.setWarehouse(null);
+    }
 
     public List<Articles> getArticles() {
         return articles;
@@ -100,8 +113,6 @@ public class Warehouse {
         return couriers;
     }
 
-    public void removeCourier(Courier courier){
-        couriers.remove(courier);}
 
     @Override
     public String toString() {

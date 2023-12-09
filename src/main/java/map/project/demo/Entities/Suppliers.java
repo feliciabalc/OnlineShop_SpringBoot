@@ -1,19 +1,25 @@
 package map.project.demo.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Suppliers {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private  String name;
     private  double telefon;
     private String articleType;
 
-    public Suppliers(Long id,String name, double telefon, String articleType) {
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public Suppliers(Long id, String name, double telefon, String articleType) {
         this.id = id;
         this.name = name;
         this.telefon = telefon;

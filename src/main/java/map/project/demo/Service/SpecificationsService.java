@@ -2,8 +2,7 @@ package map.project.demo.Service;
 
 import map.project.demo.DB_Repo.ReviewRepo;
 import map.project.demo.DB_Repo.SpecificationsRepo;
-import map.project.demo.Entities.Review;
-import map.project.demo.Entities.Specifications;
+import map.project.demo.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +31,13 @@ public class SpecificationsService {
 
     public void deleteSpecifications(Long id) {
         specificationsRepo.deleteById(id);
+    }
+
+
+    public Articles getArticleForSpecifications(Long specificationId) throws Exception {
+        Specifications specification = specificationsRepo.findById(specificationId)
+                .orElseThrow(() -> new Exception("Specification not found with id " + specificationId));
+
+        return specification.getArticle();
     }
 }

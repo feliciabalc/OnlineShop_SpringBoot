@@ -2,8 +2,10 @@ package map.project.demo.Service;
 
 import map.project.demo.DB_Repo.ReviewRepo;
 import map.project.demo.DB_Repo.SuppliersRepo;
+import map.project.demo.Entities.Employee;
 import map.project.demo.Entities.Review;
 import map.project.demo.Entities.Suppliers;
+import map.project.demo.Entities.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,4 +37,12 @@ public class SupplierService {
     public void deleteSupplier(Long id) {
         suppliersRepo.deleteById(id);
     }
+
+    public Warehouse getWarehouseForSupplier(Long supplierId) throws Exception {
+        Suppliers supplier = suppliersRepo.findById(supplierId)
+                .orElseThrow(() -> new Exception("Supplier not found with id " + supplierId));
+
+        return supplier.getWarehouse();
+    }
+
 }

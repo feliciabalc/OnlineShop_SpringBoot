@@ -1,7 +1,7 @@
 package map.project.demo.DB_Controller;
 
+import map.project.demo.Entities.*;
 import map.project.demo.Service.ArticleService;
-import map.project.demo.Entities.Articles;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +64,49 @@ public class ArticleController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping
+    public ResponseEntity<Articles> createArticle(@RequestBody Articles newArticle) {
+            Articles savedArticle = articleService.saveArticle(newArticle);
+            return new ResponseEntity<>(savedArticle, HttpStatus.OK);
+
+    }
+
+
+
+//    public ResponseEntity<Void> addSpecificationToArticle(
+//            @PathVariable int articleId,
+//            @RequestBody Specifications specification) {
+//        articleService.addSpecificationToArticle(articleId, specification);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
+
+    @GetMapping("/{articleId}/specifications")
+    public ResponseEntity<List<Specifications>> getSpecificationsForArticle(@PathVariable Long articleId) throws Exception {
+        List<Specifications> specifications = articleService.getSpecificationsForArticle(articleId);
+        return new ResponseEntity<>(specifications, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{articleId}/review")
+    public ResponseEntity<List<Review>> getReviewsForArticle(@PathVariable Long articleId) throws Exception {
+        List<Review> review = articleService.getReviewForArticle(articleId);
+        return new ResponseEntity<>(review, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{articleId}/orders")
+    public ResponseEntity<List<Orders>> getOrdersForArticle(@PathVariable Long articleId) throws Exception {
+        List<Orders> order = articleService.getOrderForArticle(articleId);
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{articleId}/warehouse")
+    public ResponseEntity<Warehouse> getWarehouseForArticle(@PathVariable Long articleId) throws Exception {
+        Warehouse warehouse = articleService.getWarehouseForArticle(articleId);
+        return new ResponseEntity<>(warehouse, HttpStatus.OK);
     }
 
 

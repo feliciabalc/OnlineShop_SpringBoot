@@ -1,7 +1,7 @@
 package map.project.demo.Service;
 
 import map.project.demo.DB_Repo.ReviewRepo;
-import map.project.demo.Entities.Review;
+import map.project.demo.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +30,19 @@ public class ReviewService {
 
     public void deleteReview(Long id) {
         reviewRepo.deleteById(id);
+    }
+
+    public Client getClientForReview(Long reviewId) throws Exception {
+        Review review = reviewRepo.findById(reviewId)
+                .orElseThrow(() -> new Exception("Review not found with id " + reviewId));
+
+        return review.getClient();
+    }
+
+    public Articles getArticleForReview(Long reviewId) throws Exception {
+        Review review = reviewRepo.findById(reviewId)
+                .orElseThrow(() -> new Exception("Review not found with id " + reviewId));
+
+        return review.getArticle();
     }
 }

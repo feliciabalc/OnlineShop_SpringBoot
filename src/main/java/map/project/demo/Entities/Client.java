@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 public class Client{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private  String  name;
     private String  address;
@@ -21,7 +22,6 @@ public class Client{
     private Cart cart;
 
     @OneToMany(mappedBy = "client")
-    @JsonManagedReference
     private List<Review> reviews= new ArrayList();
 
     public Client(Long id,String name, String address, double telefon) {
@@ -95,18 +95,22 @@ public class Client{
 
     public void addReview(Review review){
         reviews.add(review);
+        review.setClient(this);
     }
 
     public void removeReview(Review review){
         reviews.remove(review);
+        review.setClient(null);
     }
 
     public void addOrder(Orders orders){
         this.orders.add(orders);
+        orders.setClient(this);
     }
 
     public void removeOrders(Orders orders){
         this.orders.remove(orders);
+        orders.setClient(null);
     }
 
     @Override

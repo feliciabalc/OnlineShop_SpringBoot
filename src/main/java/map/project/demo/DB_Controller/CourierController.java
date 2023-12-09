@@ -1,6 +1,6 @@
 package map.project.demo.DB_Controller;
 
-import map.project.demo.Entities.Courier;
+import map.project.demo.Entities.*;
 import map.project.demo.Entities.Courier;
 import map.project.demo.Service.CartService;
 import map.project.demo.Service.CourierService;
@@ -51,5 +51,23 @@ public class CourierController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("/{courierId}/warehouse")
+    public ResponseEntity<Warehouse> getWarehouseForCourier(@PathVariable Long courierId) throws Exception {
+        Warehouse warehouse = courierService.getWarehouseForCourier(courierId);
+        return new ResponseEntity<>(warehouse, HttpStatus.OK);
+    }
+
+    @GetMapping("/{courierId}/orders")
+    public ResponseEntity<List<Orders>> getOrdersForCourier(@PathVariable Long courierId) throws Exception {
+        List<Orders> orders= courierService.getOrdersForCourier(courierId);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Courier> createCourier(@RequestBody Courier newCourier) {
+        Courier savedCourier = courierService.saveCourier(newCourier);
+        return new ResponseEntity<>(savedCourier, HttpStatus.OK);
+
     }
 }

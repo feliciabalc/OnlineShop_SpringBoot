@@ -2,15 +2,13 @@ package map.project.demo.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Specifications {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String size;
     private String color;
@@ -93,5 +91,9 @@ public class Specifications {
 
     public void setArticle(Articles articles) {
         this.article= articles;
+    }
+
+    public Articles getArticle() {
+        return article;
     }
 }

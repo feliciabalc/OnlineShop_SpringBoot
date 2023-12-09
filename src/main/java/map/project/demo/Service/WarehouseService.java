@@ -2,8 +2,7 @@ package map.project.demo.Service;
 
 import map.project.demo.DB_Repo.ReviewRepo;
 import map.project.demo.DB_Repo.WarehouseRepo;
-import map.project.demo.Entities.Review;
-import map.project.demo.Entities.Warehouse;
+import map.project.demo.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +31,30 @@ public class WarehouseService {
 
     public void deleteWarehouse(Long id) {
         warehouseRepo.deleteById(id);
+    }
+
+    public List<Articles> getArticlesForWarehouse(Long warehouseId) throws Exception {
+        Warehouse warehouse = warehouseRepo.findById(warehouseId)
+                .orElseThrow(() -> new Exception("Warehouse not found with id " + warehouseId));
+
+        return warehouse.getArticles();
+    }
+    public List<Employee> getEmployeesForWarehouse(Long warehouseId) throws Exception {
+        Warehouse warehouse = warehouseRepo.findById(warehouseId)
+                .orElseThrow(() -> new Exception("Warehouse not found with id " + warehouseId));
+
+        return warehouse.getEmployees();
+    }
+    public List<Suppliers> getSuppliersForWarehouse(Long warehouseId) throws Exception {
+        Warehouse warehouse = warehouseRepo.findById(warehouseId)
+                .orElseThrow(() -> new Exception("Warehouse not found with id " + warehouseId));
+
+        return warehouse.getSuppliers();
+    }
+    public List<Courier> getCouriersForWarehouse(Long warehouseId) throws Exception {
+        Warehouse warehouse = warehouseRepo.findById(warehouseId)
+                .orElseThrow(() -> new Exception("Warehouse not found with id " + warehouseId));
+
+        return warehouse.getCouriers();
     }
 }

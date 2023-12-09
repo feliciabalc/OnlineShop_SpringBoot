@@ -1,7 +1,6 @@
 package map.project.demo.DB_Controller;
 
-import map.project.demo.Entities.Cart;
-import map.project.demo.Entities.Review;
+import map.project.demo.Entities.*;
 import map.project.demo.Service.CartService;
 import map.project.demo.Service.ReviewService;
 import org.springframework.http.HttpStatus;
@@ -52,4 +51,23 @@ public class ReviewController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/{reviewId}/client")
+    public ResponseEntity<Client> getClientForReview(@PathVariable Long reviewId) throws Exception {
+        Client client= reviewService.getClientForReview(reviewId);
+        return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+
+    @GetMapping("/{reviewId}/article")
+    public ResponseEntity<Articles> getArticleForReview(@PathVariable Long reviewId) throws Exception {
+        Articles article= reviewService.getArticleForReview(reviewId);
+        return new ResponseEntity<>(article, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Review> createReview(@RequestBody Review newReview) {
+        Review savedReview = reviewService.saveReview(newReview);
+        return new ResponseEntity<>(savedReview, HttpStatus.OK);
+    }
+
 }

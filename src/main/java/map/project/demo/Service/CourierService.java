@@ -2,8 +2,7 @@ package map.project.demo.Service;
 
 import map.project.demo.DB_Repo.ClientRepo;
 import map.project.demo.DB_Repo.CourierRepo;
-import map.project.demo.Entities.Client;
-import map.project.demo.Entities.Courier;
+import map.project.demo.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +31,20 @@ public class CourierService {
 
     public void deleteCourier(Long id) {
         courierRepo.deleteById(id);
+    }
+
+
+    public Warehouse getWarehouseForCourier(Long courierId) throws Exception {
+        Courier courier= courierRepo.findById(courierId)
+                .orElseThrow(() -> new Exception("Courier not found with id " + courierId));
+
+        return courier.getWarehouse();
+    }
+
+    public List<Orders> getOrdersForCourier(Long courierId) throws Exception {
+        Courier courier= courierRepo.findById(courierId)
+                .orElseThrow(() -> new Exception("Courier not found with id " + courierId));
+
+        return courier.getOrders();
     }
 }

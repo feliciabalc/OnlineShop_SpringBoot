@@ -21,6 +21,7 @@ public class Articles {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String brand;
@@ -144,22 +145,38 @@ public class Articles {
     }
 
     public void removeSpecifications(Specifications specification) {
+
         specifications.remove(specification);
+        specification.setArticle(null);
     }
 
     public void addReview(Review review) {
+        review.setArticle(this);
         reviews.add(review);
+
     }
 
     public void removeReview(Review review) {
         reviews.remove(review);
+        review.setArticle(null);
     }
 
     public void addOrders(Orders orders) {
         this.orders.add(orders);
+        orders.addArticle(this);
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
     }
 
     public void removeOrders(Orders orders) {
+
         this.orders.remove(orders);
+        orders.removeArticle(this);
     }
 }

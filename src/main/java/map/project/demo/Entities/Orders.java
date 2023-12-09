@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 public class Orders {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double orderNumber;
     private float totalAmount;
@@ -24,7 +25,6 @@ public class Orders {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "article_id")
     )
-    @JsonManagedReference
     private List<Articles> articles = new ArrayList<>();
 
 
@@ -136,12 +136,30 @@ public class Orders {
     }
 
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
     public void addArticle(Articles article){
+
         articles.add(article);
+        article.addOrders(this);
     }
 
     public void removeArticle(Articles article){
         articles.remove(article);
+        article.removeOrders(this);
     }
 }

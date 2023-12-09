@@ -9,6 +9,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Employee {
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     protected Long id;
     protected String name;
     protected String role;
@@ -16,8 +17,8 @@ public class Employee {
     protected double telefon;
 
     @OneToMany(mappedBy = "employee")
-    @JsonManagedReference
     protected List<Orders> orders= new ArrayList<>();
+
 
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
@@ -84,6 +85,24 @@ public class Employee {
         this.orders = orders;
     }
 
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public void addOrder(Orders order){
+        orders.add(order);
+        order.setEmployee(this);
+    }
+
+    public void removeOrder(Orders order){
+        orders.remove(order);
+        order.setEmployee(null);
+    }
+
 
     @Override
     public String toString() {
@@ -99,11 +118,5 @@ public class Employee {
 
 
 
-    public void addOrders(Orders orders){
-        this.orders.add(orders);
-    }
 
-    public void removeOrders(Orders orders){
-        this.orders.remove(orders);
-    }
 }

@@ -1,7 +1,6 @@
 package map.project.demo.DB_Controller;
 
-import map.project.demo.Entities.Cart;
-import map.project.demo.Entities.Specifications;
+import map.project.demo.Entities.*;
 import map.project.demo.Service.CartService;
 import map.project.demo.Service.SpecificationsService;
 import org.springframework.http.HttpStatus;
@@ -52,4 +51,18 @@ public class SpecificationsController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/{specificationId}/articles")
+    public ResponseEntity<Articles> getArticleForSpecifications(@PathVariable Long specificationId) throws Exception {
+        Articles articles= specificationsService.getArticleForSpecifications(specificationId);
+        return new ResponseEntity<>(articles, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Specifications> createSpecifications(@RequestBody Specifications newSpecifications) {
+        Specifications savedSpecifications = specificationsService.saveSpecifications(newSpecifications);
+        return new ResponseEntity<>(savedSpecifications, HttpStatus.OK);
+    }
+
+
 }

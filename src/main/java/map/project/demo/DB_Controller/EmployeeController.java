@@ -1,7 +1,6 @@
 package map.project.demo.DB_Controller;
 
-import map.project.demo.Entities.Cart;
-import map.project.demo.Entities.Employee;
+import map.project.demo.Entities.*;
 import map.project.demo.Service.CartService;
 import map.project.demo.Service.EmployeeService;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,7 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Employee>> getAllEmployee() {
+    public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employee = (List<Employee>) employeeService.getAllEmployees();
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
@@ -51,5 +50,24 @@ public class EmployeeController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+
+    @GetMapping("/{employeeId}/warehouse")
+    public ResponseEntity<Warehouse> getWarehouseForEmployee(@PathVariable Long employeeId) throws Exception {
+        Warehouse warehouse = employeeService.getWarehouseForEmployee(employeeId);
+        return new ResponseEntity<>(warehouse, HttpStatus.OK);
+    }
+
+    @GetMapping("/{employeeId}/orders")
+    public ResponseEntity<List<Orders>> getOrdersForEmployee(@PathVariable Long employeeId) throws Exception {
+        List<Orders> orders= employeeService.getOrdersForEmployee(employeeId);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee newEmployee) {
+        Employee savedEmployee = employeeService.saveEmployee(newEmployee);
+        return new ResponseEntity<>(savedEmployee, HttpStatus.OK);
     }
 }

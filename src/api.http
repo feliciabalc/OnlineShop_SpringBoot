@@ -1,17 +1,34 @@
 GET http://localhost:8080/api/articles
 ###
-GET http://localhost:8080/api/articles/8
+GET http://localhost:8080/api/articles/7
 
 GET http://localhost:8080/api/articles/findByMaterial
 
+
 ###
-POST http://localhost:8080/api/articles/
+
+PUT http://localhost:8080/api/articles/7
+Content-Type: application/json
 
 {
   "name": "tricou",
   "brand": "adidas",
   "material": "bumbac",
   "type": "crop top",
+  "price": 120,
+  "cart_id": null,
+  "warehouse_id": null
+}
+
+###
+POST http://localhost:8080/api/articles
+Content-Type: application/json
+
+{
+  "name": "pantaloni",
+  "brand": "zara",
+  "material": "bumbac",
+  "type": "lunngi",
   "price": 100,
   "cart_id": null,
   "warehouse_id": null
@@ -22,19 +39,21 @@ POST http://localhost:8080/api/articles/
 PUT /articles/1
 
 ###
-DELETE http://localhost:8080/api/articles/8
+DELETE http://localhost:8080/api/articles/11
 
 ###
-GET http://localhost:8080/api/articles/7GET http://localhost:8080/api/articles/1/specifications/specifications
+GET http://localhost:8080/api/articles/7/specifications
 
 ###
-GET http://localhost:8080/api/articles/1/reviews
+GET http://localhost:8080/api/articles/7/orders
+###
+
+GET http://localhost:8080/api/articles/7/warehouse
 
 ###
 GET http://localhost:8080/api/specifications
 
 ###
-
 GET http://localhost:8080/api/specifications/5
 
 ###
@@ -45,6 +64,9 @@ PUT http://localhost:8080/api/specifications/5
 
 ###
 DELETE http://localhost:8080/api/specifications/5
+
+###
+GET http://localhost:8080/api/specifications/5/articles
 
 ###
 GET http://localhost:8080/api/review
@@ -60,6 +82,12 @@ PUT http://localhost:8080/api/review/7
 
 ###
 DELETE http://localhost:8080/api/review/7
+
+###
+GET http://localhost:8080/api/review/7/article
+
+###
+GET http://localhost:8080/api/review/7/client
 
 ###
 GET http://localhost:8080/api/order
@@ -78,6 +106,15 @@ DELETE http://localhost:8080/api/order/13
 
 ###
 POST http://localhost:8080/api/order/13/process
+
+###
+GET http://localhost:8080/api/order/13/articles
+
+###
+GET http://localhost:8080/api/order/13/client
+
+###
+GET http://localhost:8080/api/order/13/employee
 
 ###
 GET http://localhost:8080/api/client
@@ -144,3 +181,39 @@ PUT http://localhost:8080/api/warehouse/6
 
 ###
 DELETE http://localhost:8080/api/warehouse/6
+
+###
+GET http://localhost:8080/api/warehouse/6/suppliers
+
+###
+GET http://localhost:8080/api/warehouse/6/couriers
+
+###
+GET http://localhost:8080/api/warehouse/6/employees
+
+###
+GET http://localhost:8080/api/warehouse/6/articles
+
+###
+GET http://localhost:8080/api/cart
+
+###
+GET http://localhost:8080/api/cart/7
+
+###
+GET http://localhost:8080/api/cart/5/articles
+
+###
+GET http://localhost:8080/api/cart/5/client
+
+###
+GET http://localhost:8080/api/supplier/5/warehouse
+
+###
+GET http://localhost:8080/api/supplier
+
+###
+GET http://localhost:8080/api/supplier/5
+
+###
+DELETE http://localhost:8080/api/supplier/5

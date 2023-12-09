@@ -4,6 +4,8 @@ import map.project.demo.DB_Repo.CourierRepo;
 import map.project.demo.DB_Repo.EmployeeRepo;
 import map.project.demo.Entities.Courier;
 import map.project.demo.Entities.Employee;
+import map.project.demo.Entities.Orders;
+import map.project.demo.Entities.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,21 @@ public class EmployeeService {
 
     public void deleteEmployee(Long id) {
         employeeRepo.deleteById(id);
+    }
+
+
+
+    public Warehouse getWarehouseForEmployee(Long employeeId) throws Exception {
+        Employee employee = employeeRepo.findById(employeeId)
+                .orElseThrow(() -> new Exception("Employee not found with id " + employeeId));
+
+        return employee.getWarehouse();
+    }
+
+    public List<Orders> getOrdersForEmployee(Long employeeId) throws Exception {
+        Employee employee = employeeRepo.findById(employeeId)
+                .orElseThrow(() -> new Exception("Employee not found with id " + employeeId));
+
+        return employee.getOrders();
     }
 }

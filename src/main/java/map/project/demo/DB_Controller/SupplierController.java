@@ -1,7 +1,6 @@
 package map.project.demo.DB_Controller;
 
-import map.project.demo.Entities.Cart;
-import map.project.demo.Entities.Suppliers;
+import map.project.demo.Entities.*;
 import map.project.demo.Service.CartService;
 import map.project.demo.Service.SupplierService;
 import org.springframework.http.HttpStatus;
@@ -53,4 +52,17 @@ public class SupplierController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/{supplierId}/warehouse")
+    public ResponseEntity<Warehouse> getWarehouseForSupplier(@PathVariable Long supplierId) throws Exception {
+        Warehouse warehouse= supplierService.getWarehouseForSupplier(supplierId);
+        return new ResponseEntity<>(warehouse, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Suppliers> createSupplier(@RequestBody Suppliers newSupplier) {
+        Suppliers savedSupplier = supplierService.saveSupplier(newSupplier);
+        return new ResponseEntity<>(savedSupplier, HttpStatus.OK);
+    }
+
 }
