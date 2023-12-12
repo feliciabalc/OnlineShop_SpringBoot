@@ -1,15 +1,18 @@
 package map.project.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Suppliers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private  String name;
     private  double telefon;
-    private String articleType;
+    private String ArticleType;
 
     public Warehouse getWarehouse() {
         return warehouse;
@@ -23,7 +26,7 @@ public class Suppliers {
         this.id = id;
         this.name = name;
         this.telefon = telefon;
-        this.articleType = articleType;
+        this.ArticleType = articleType;
     }
 
     protected Suppliers() {
@@ -59,11 +62,11 @@ public class Suppliers {
     }
 
     public String getArticleType() {
-        return articleType;
+        return ArticleType;
     }
 
     public void setArticleType(String articleType) {
-        this.articleType = articleType;
+        this.ArticleType = articleType;
     }
 
 
@@ -73,7 +76,7 @@ public class Suppliers {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", telefon=" + telefon +
-                ", articleType='" + articleType + '\'' +
+                ", articleType='" + ArticleType + '\'' +
                 '}';
     }
 }

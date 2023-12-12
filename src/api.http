@@ -1,46 +1,45 @@
 GET http://localhost:8080/api/articles
+
 ###
 GET http://localhost:8080/api/articles/7
+
 ###
 GET http://localhost:8080/api/articles/filterByBrand?brand=zara
+
 ###
 GET http://localhost:8080/api/articles/filterByMaterial?material=bumbac
 
 ###
-
 PUT http://localhost:8080/api/articles/7
-Content-Type: application/json
 
 {
-  "name": "tricou",
+  "name": "top",
   "brand": "adidas",
-  "material": "bumbac",
-  "type": "crop top",
-  "price": 120,
-  "cart_id": null,
-  "warehouse_id": null
+  "material": "tafta",
+  "type": "maneca",
+  "price": 3.0,
+  "specifications": null,
+  "orders": null,
+  "warehouse": null
 }
 
 ###
 POST http://localhost:8080/api/articles
-Content-Type: application/json
 
-{
-  "name": "pantaloni",
+  {
+  "name": "fusta",
   "brand": "zara",
-  "material": "bumbac",
-  "type": "lunngi",
-  "price": 100,
-  "cart_id": null,
-  "warehouse_id": null
-}
+  "material": "matase",
+  "type": "lunga",
+  "price": 60,
+  "specifications": null,
+  "orders": null,
+  "warehouse": null
+  }
 
 
 ###
-PUT /articles/1
-
-###
-DELETE http://localhost:8080/api/articles/11
+DELETE http://localhost:8080/api/articles/12
 
 ###
 GET http://localhost:8080/api/articles/7/specifications
@@ -49,7 +48,7 @@ GET http://localhost:8080/api/articles/7/specifications
 GET http://localhost:8080/api/articles/7/orders
 ###
 
-GET http://localhost:8080/api/articles/7/warehouse
+GET http://localhost:8080/api/articles/10/warehouse
 
 ###
 GET http://localhost:8080/api/specifications
@@ -64,10 +63,10 @@ POST http://localhost:8080/api/specifications
 PUT http://localhost:8080/api/specifications/5
 
 ###
-DELETE http://localhost:8080/api/specifications/5
+DELETE http://localhost:8080/api/specifications/6
 
 ###
-GET http://localhost:8080/api/specifications/5/articles
+GET http://localhost:8080/api/specifications/7/articles
 
 ###
 GET http://localhost:8080/api/specifications/filterByColor?color=blue
@@ -75,7 +74,7 @@ GET http://localhost:8080/api/specifications/filterByColor?color=blue
 ###
 GET http://localhost:8080/api/specifications/filterBySize?size=S
 
-###
+###PROXY
 GET http://localhost:8080/api/review
 
 ###
@@ -84,20 +83,31 @@ GET http://localhost:8080/api/review/7
 ###
 POST http://localhost:8080/api/review
 
+{
+    "stars": "5 stars",
+    "comment": "super!",
+    "date": "09.05.2023",
+    "client": null
+}
+
 ###
 PUT http://localhost:8080/api/review/7
 
+{
+    "stars": "4 stars",
+    "comment": "super!",
+    "date": "09.05.2023",
+    "client": null
+}
+
 ###
-DELETE http://localhost:8080/api/review/7
+DELETE http://localhost:8080/api/review/8
 
 ###
 GET http://localhost:8080/api/review/7/article
 
 ###
 GET http://localhost:8080/api/review/7/client
-
-###
-GET http://localhost:8080/api/review/filterByDate?date=10.10.2023
 
 ###
 GET http://localhost:8080/api/review/filterByStars?stars=5
@@ -110,6 +120,7 @@ GET http://localhost:8080/api/order/13
 
 ###
 POST /http://localhost:8080/api/order
+
 {
     "orderNumber": 0.0,
     "totalAmount": 0.0,
@@ -124,14 +135,22 @@ POST /http://localhost:8080/api/order
 ###
 PUT http://localhost:8080/api/order/13
 
+{
+    "orderNumber": 30.0,
+    "totalAmount": 100.0,
+    "address": "Gruia 57",
+    "date": "12.12.2022",
+    "articles": [],
+    "client": null,
+    "employee": null,
+    "paymentMethod": "cash"
+}
 ###
-DELETE http://localhost:8080/api/order/
-
-###
-POST http://localhost:8080/api/order/13/process
+DELETE http://localhost:8080/api/order/22
 
 ###
 GET http://localhost:8080/api/order/13/articles
+
 ###
 GET http://localhost:8080/api/order/filterByDate?date=10.12.2022
 
@@ -150,17 +169,35 @@ GET http://localhost:8080/api/client/7
 ###
 POST http://localhost:8080/api/client
 
+{
+    "name": "Marin",
+    "address": "ploiesti 30",
+    "telefon": 844.6535.222,
+    "orders": [13],
+    "cart": null,
+    "review": []
+  }
+
 ###
 PUT http://localhost:8080/api/client/7
 
+{
+    "name": "Marin",
+    "address": "doinei 1",
+    "telefon": 844.6535.222,
+    "orders": [13],
+    "cart": null,
+    "review": []
+  }
+
 ###
-DELETE http://localhost:8080/api/client/7
+DELETE http://localhost:8080/api/client/8
 
 ###
 GET http://localhost:8080/api/client/7/orders
 
 ###
-GET http://localhost:8080/api/client/7/reviews
+GET http://localhost:8080/api/client/7/review
 
 ###
 GET http://localhost:8080/api/client/filterByName?name=Ion
@@ -174,11 +211,29 @@ GET http://localhost:8080/api/courier/1
 ###
 POST http://localhost:8080/api/courier
 
+  {
+    "name": "Eugen",
+    "role": null,
+    "salary": "1500",
+    "telefon": 7947448.0,
+    "orders": [],
+    "warehouse": null
+  }
+
 ###
 PUT http://localhost:8080/api/courier/1
 
+  {
+    "name": "Eugen",
+    "role": null,
+    "salary": "3000",
+    "telefon": 7947448.0,
+    "orders": [],
+    "warehouse": null
+  }
+
 ###
-DELETE http://localhost:8080/api/courier/1
+DELETE http://localhost:8080/api/courier/2
 
 ###
 GET http://localhost:8080/api/employee
@@ -189,13 +244,32 @@ GET http://localhost:8080/api/employee/5
 ###
 POST http://localhost:8080/api/employee
 
+{
+    "name": "Dragos",
+    "role": null,
+    "salary": "1500",
+    "telefon": 7947448.0,
+    "orders": [],
+    "warehouse": null
+}
+
 ###
 PUT http://localhost:8080/api/employee/5
+
+{
+    "name": "Dragos",
+    "role": null,
+    "salary": "800",
+    "telefon": 7947448.0,
+    "orders": [],
+    "warehouse": null
+  }
+
 ###
 GET http://localhost:8080/api/employee/filterByRole?role=billing
 
 ###
-DELETE http://localhost:8080/api/employee/5
+DELETE http://localhost:8080/api/employee/4
 
 ###
 GET http://localhost:8080/api/warehouse
