@@ -110,12 +110,22 @@ GET http://localhost:8080/api/order/13
 
 ###
 POST /http://localhost:8080/api/order
+{
+    "orderNumber": 0.0,
+    "totalAmount": 0.0,
+    "address": "Gruia 57",
+    "date": "12.12.2022",
+    "articles": [],
+    "client": null,
+    "employee": null,
+    "paymentMethod": "cash"
+}
 
 ###
 PUT http://localhost:8080/api/order/13
 
 ###
-DELETE http://localhost:8080/api/order/13
+DELETE http://localhost:8080/api/order/
 
 ###
 POST http://localhost:8080/api/order/13/process

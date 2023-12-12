@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Orders {
+public class Orders implements OrderComponent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,6 +16,8 @@ public class Orders {
     private  String PaymentMethod;
     private String address;
     private String date;
+
+
 
 
     // In Orders class
@@ -35,24 +37,11 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
-  //  private PaymentStrategy paymentStrategy;
 
     protected Orders() {
 
     }
 
-
-//    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
-//        this.paymentStrategy = paymentStrategy;
-//    }
-//
-//    public void processPayment() {
-//        paymentStrategy.processPayment(this);
-//    }
-//
-//    public PaymentStrategy getPaymentStrategy() {
-//        return paymentStrategy;
-//    }
 
     public Orders(Long id, double orderNumber, float totalAmount, String PaymentMethod, String Address,
                   String Date) {
@@ -63,6 +52,9 @@ public class Orders {
         this.address = Address;
         this.date = Date;
     }
+
+
+
 
 
 
@@ -86,9 +78,6 @@ public class Orders {
         return totalAmount;
     }
 
-    public void setTotalAmount(float totalAmount) {
-        this.totalAmount = totalAmount;
-    }
 
     public String getPaymentMethod() {
         return PaymentMethod;
@@ -106,9 +95,6 @@ public class Orders {
         this.address = address;
     }
 
-    public String getDate() {
-        return date;
-    }
 
     public void setDate(String date) {
         this.date = date;
@@ -161,5 +147,21 @@ public class Orders {
     public void removeArticle(Articles article){
         articles.remove(article);
         article.removeOrders(this);
+    }
+
+    @Override
+    public float calculateTotalAmount() {
+        return totalAmount;
+    }
+
+
+    @Override
+    public String getDate() {
+        return date;
+    }
+
+    @Override
+    public void setTotalAmount(float totalAmount) {
+        this.totalAmount = totalAmount;
     }
 }

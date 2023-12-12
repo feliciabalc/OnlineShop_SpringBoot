@@ -1,9 +1,8 @@
 package map.project.demo.DB_Controller;
 
-import jakarta.persistence.criteria.Order;
 import map.project.demo.Entities.*;
-import map.project.demo.Service.ArticleService;
 import map.project.demo.Service.OrderService;
+import map.project.demo.Service.PaymentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/order")
 public class OrderController {
+
+    OrderBillingSystem orderBillingSystem = OrderBillingSystem.getInstance();
     private final OrderService orderService;
 
-    public OrderController(OrderService orderService) {
+    private final PaymentService paymentService;
+
+    public OrderController(OrderService orderService, PaymentService paymentService) {
         this.orderService = orderService;
+        this.paymentService = paymentService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Orders> getOrderById(@PathVariable Long id) {
         Orders order = orderService.getOrderById(id);
@@ -73,6 +78,19 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<Orders> createOrder(@RequestBody Orders newOrder) {
         Orders savedOrder = orderService.saveOrder(newOrder);
+        orderBillingSystem.generateBill(savedOrder);
+        PaymentStrategy paymentStrategy = null;
+        if ("card".equals(savedOrder.getPaymentMethod())) {
+            paymentStrategy = new CreditCardPaymentStrategy();
+        } else if ("cash".equals(savedOrder.getPaymentMethod()))
+            paymentStrategy = new CashOnDelieveryStrategy();
+
+        if (paymentStrategy != null)
+            paymentService.processPayment(savedOrder, paymentStrategy);
+
+        OrderComponent decoratedOrder = new DiscountDecorator(savedOrder);
+        decoratedOrder.calculateTotalAmount();
+
         return new ResponseEntity<>(savedOrder, HttpStatus.OK);
     }
 

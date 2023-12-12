@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,6 +32,15 @@ public class ReviewController {
     @GetMapping
     public ResponseEntity<List<Review>> getAllReview() {
         List<Review> review = (List<Review>) reviewService.getAllReviews();
+        List<ReviewComponent> reviewComponents = new ArrayList<>();
+
+        for (Review rev : review) {
+            ReviewComponent reviewComponent = new ReviewProxy(rev);
+            rev.setComment(reviewComponent.getComment());
+            rev.setStars(reviewComponent.getStars());
+
+        }
+
         return new ResponseEntity<>(review, HttpStatus.OK);
     }
 
