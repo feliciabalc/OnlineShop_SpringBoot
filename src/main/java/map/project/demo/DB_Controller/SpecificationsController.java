@@ -1,6 +1,7 @@
 package map.project.demo.DB_Controller;
 
 import map.project.demo.Entities.*;
+import map.project.demo.Service.ArticleService;
 import map.project.demo.Service.CartService;
 import map.project.demo.Service.SpecificationsService;
 import org.springframework.http.HttpStatus;
@@ -13,10 +14,13 @@ import java.util.List;
 @RequestMapping("/api/specifications")
 public class SpecificationsController {
     private final SpecificationsService specificationsService;
+    private final ArticleService articleService;
 
-    public SpecificationsController(SpecificationsService specificationsService) {
+    public SpecificationsController(SpecificationsService specificationsService, ArticleService articleService) {
         this.specificationsService = specificationsService;
+        this.articleService = articleService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Specifications> getSpecificationsById(@PathVariable Long id) {
         Specifications specifications = specificationsService.getSpecificationsById(id);
@@ -74,6 +78,18 @@ public class SpecificationsController {
         return specificationsService.filteredBySize(size);
     }
 
+    @PostMapping("/{specId}/addArticle")
+    public ResponseEntity<String> addArticleToSpecification(@PathVariable Long specId, @RequestBody Long articleId) throws Exception {
+        Specifications specifications = specificationsService.getSpecificationsById(specId);
+        Articles article = articleService.getArticleById(specId);
 
+        if (article == null || specifications == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Article or Specification not found");
+        }
+
+        specificationsService.addArticleToSpecification(specId, article);
+
+        return ResponseEntity.ok("Article added to the specification successfully");
+    }
 
 }

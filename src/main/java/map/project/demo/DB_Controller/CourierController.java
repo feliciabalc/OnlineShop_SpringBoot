@@ -4,6 +4,8 @@ import map.project.demo.Entities.*;
 import map.project.demo.Entities.Courier;
 import map.project.demo.Service.CartService;
 import map.project.demo.Service.CourierService;
+import map.project.demo.Service.OrderService;
+import map.project.demo.Service.WarehouseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,15 @@ import java.util.List;
 @RequestMapping("/api/courier")
 public class CourierController {
     private final CourierService courierService;
+    private final WarehouseService warehouseService;
+    private final OrderService orderService;
 
-    public CourierController(CourierService courierService) {
+    public CourierController(CourierService courierService, WarehouseService warehouseService, OrderService orderService) {
         this.courierService = courierService;
+        this.warehouseService = warehouseService;
+        this.orderService = orderService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Courier> getCourierById(@PathVariable Long id) {
         Courier courier = courierService.getCourierById(id);
@@ -69,5 +76,33 @@ public class CourierController {
         Courier savedCourier = courierService.saveCourier(newCourier);
         return new ResponseEntity<>(savedCourier, HttpStatus.OK);
 
+    }
+
+    @PostMapping("/{courierId}/addWarehouse")
+    public ResponseEntity<String> addWarehouseToCourier(@PathVariable Long courierId, @RequestBody Long warehouseId) throws Exception {
+        Courier courier = courierService.getCourierById(courierId);
+        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
+
+        if (courier == null || warehouse == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Courier or Warehouse not found");
+        }
+
+        courierService.addWarehouseToCourier(courierId, warehouse);
+
+        return ResponseEntity.ok("Warehouse added to the courier successfully");
+    }
+
+    @PostMapping("/{courierId}/addOrder")
+    public ResponseEntity<String> addOrderToCourier(@PathVariable Long courierId, @RequestBody Long orderId) throws Exception {
+        Courier courier = courierService.getCourierById(courierId);
+        Orders order = orderService.getOrderById(orderId);
+
+        if (courier == null || order == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Courier or Order not found");
+        }
+
+        courierService.addOrderToCourier(courierId, order);
+
+        return ResponseEntity.ok("Order added to the courier successfully");
     }
 }

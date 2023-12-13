@@ -1,6 +1,6 @@
 package map.project.demo.Entities;
 
-public class ReviewProxy implements ReviewComponent{
+public class ReviewProxy implements ReviewComponent  {
     private final Review realReview;
 
     public ReviewProxy(Review realReview) {

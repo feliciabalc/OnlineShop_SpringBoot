@@ -2,10 +2,7 @@ package map.project.demo.Service;
 
 import jakarta.persistence.criteria.Order;
 import map.project.demo.DB_Repo.ClientRepo;
-import map.project.demo.Entities.Cart;
-import map.project.demo.Entities.Client;
-import map.project.demo.Entities.Orders;
-import map.project.demo.Entities.Review;
+import map.project.demo.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,10 +56,31 @@ public class ClientService {
         return client.getOrders();
     }
 
-
-
     public List<Client> filteredByName(String name){
         return clientRepo.filteredByName(name);
     }
 
+    public void addCartToClient(Long clientId, Cart cart) throws Exception {
+        Client client = clientRepo.findById(clientId)
+                .orElseThrow(() -> new Exception("Client not found with id " + clientId));
+
+        client.setCart(cart);
+        clientRepo.save(client);
+    }
+
+    public void addOrderToClient(Long clientId, Orders order) throws Exception {
+        Client client = clientRepo.findById(clientId)
+                .orElseThrow(() -> new Exception("Client not found with id " + clientId));
+
+        client.addOrder(order);
+        clientRepo.save(client);
+    }
+
+    public void addReviewToClient(Long clientId, Review review) throws Exception {
+        Client client = clientRepo.findById(clientId)
+                .orElseThrow(() -> new Exception("Client not found with id " + clientId));
+
+        client.addReview(review);
+        clientRepo.save(client);
+    }
 }

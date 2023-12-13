@@ -61,4 +61,36 @@ public class WarehouseService {
     public List<Warehouse> filteredByAddress(String address) {
         return warehouseRepo.filteredByAddress(address);
     }
+
+    public void addArticleToWarehouse(Long warehouseId, Articles article) throws Exception {
+        Warehouse warehouse = warehouseRepo.findById(warehouseId)
+                .orElseThrow(() -> new Exception("Warehouse not found with id " + warehouseId));
+
+        warehouse.addArticles(article);
+        warehouseRepo.save(warehouse);
+    }
+
+    public void addCourierToWarehouse(Long warehouseId, Courier courier) throws Exception {
+        Warehouse warehouse = warehouseRepo.findById(warehouseId)
+                .orElseThrow(() -> new Exception("Warehouse not found with id " + warehouseId));
+
+        warehouse.addCourier(courier);
+        warehouseRepo.save(warehouse);
+    }
+
+    public void addSupplierToWarehouse(Long warehouseId, Suppliers supplier) throws Exception {
+        Warehouse warehouse = warehouseRepo.findById(warehouseId)
+                .orElseThrow(() -> new Exception("Warehouse not found with id " + warehouseId));
+
+        warehouse.addSuppliers(supplier);
+        warehouseRepo.save(warehouse);
+    }
+    public void addEmployeeToWarehouse(Long warehouseId, Employee employee) throws Exception {
+        Warehouse warehouse = warehouseRepo.findById(warehouseId)
+                .orElseThrow(() -> new Exception("Warehouse not found with id " + warehouseId));
+
+        warehouse.addEmployee(employee);
+        warehouseRepo.save(warehouse);
+    }
 }
+

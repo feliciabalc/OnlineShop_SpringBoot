@@ -10,8 +10,5 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	//2 pattern-uri
-	//teste
-	//client cart articol
 
 }

@@ -1,6 +1,9 @@
 GET http://localhost:8080/api/articles
 
 ###
+POST http://localhost:8080/api/articles/7/addSpecification
+5
+###
 GET http://localhost:8080/api/articles/7
 
 ###
@@ -76,6 +79,14 @@ GET http://localhost:8080/api/specifications/filterBySize?size=S
 
 ###PROXY
 GET http://localhost:8080/api/review
+###
+POST http://localhost:8080/api/review/7/addArticle
+7
+
+###
+POST http://localhost:8080/api/review/7/addClient
+7
+
 
 ###
 GET http://localhost:8080/api/review/7
@@ -132,6 +143,9 @@ POST /http://localhost:8080/api/order
     "paymentMethod": "cash"
 }
 
+###
+POST http://localhost:8080/api/order/13/addClient
+7
 ###
 PUT http://localhost:8080/api/order/13
 
@@ -287,12 +301,27 @@ GET http://localhost:8080/api/warehouse/6/articles
 GET http://localhost:8080/api/cart
 
 ###
-GET http://localhost:8080/api/cart/7
+GET http://localhost:8080/api/cart/6
 
 ###
 GET http://localhost:8080/api/cart/5/articles
 
 ###
+PUT  http://localhost:8080/api/cart/5
+
+{
+    "quantity": 5.0,
+    "articles": [],
+    "client": null,
+    "observers": null
+  }
+
+###
+POST http://localhost:8080/api/cart/6/addClient
+8
+
+###
+
 GET http://localhost:8080/api/cart/5/client
 
 ###
@@ -312,3 +341,19 @@ DELETE http://localhost:8080/api/supplier/5
 
 ###
 GET http://localhost:8080/api/supplier/filterByName?name=Silviu
+
+###
+GET http://localhost:8080/api/warehouse
+
+###
+GET http://localhost:8080/api/warehouse/6
+
+###
+POST http://localhost:8080/api/warehouse
+
+###
+PUT http://localhost:8080/api/warehouse/6
+
+###
+DELETE http://localhost:8080/api/warehouse/6
+

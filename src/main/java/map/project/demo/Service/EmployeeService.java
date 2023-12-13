@@ -2,10 +2,7 @@ package map.project.demo.Service;
 
 import map.project.demo.DB_Repo.CourierRepo;
 import map.project.demo.DB_Repo.EmployeeRepo;
-import map.project.demo.Entities.Courier;
-import map.project.demo.Entities.Employee;
-import map.project.demo.Entities.Orders;
-import map.project.demo.Entities.Warehouse;
+import map.project.demo.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +52,21 @@ public class EmployeeService {
 
     public List<Employee> filteredByRole(String role){
         return employeeRepo.filteredByRole(role);
+    }
+
+    public void addWarehouseToEmployee(Long employeeId, Warehouse warehouse) throws Exception {
+        Employee employee = employeeRepo.findById(employeeId)
+                .orElseThrow(() -> new Exception("Employee not found with id " + employeeId));
+
+        employee.setWarehouse(warehouse);
+        employeeRepo.save(employee);
+    }
+
+    public void addOrderToEmployee(Long employeeId, Orders order) throws Exception {
+        Employee employee = employeeRepo.findById(employeeId)
+                .orElseThrow(() -> new Exception("Employee not found with id " + employeeId));
+
+        employee.addOrder(order);
+        employeeRepo.save(employee);
     }
 }

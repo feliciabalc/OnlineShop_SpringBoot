@@ -1,8 +1,7 @@
 package map.project.demo.DB_Controller;
 
 import map.project.demo.Entities.*;
-import map.project.demo.Service.OrderService;
-import map.project.demo.Service.PaymentService;
+import map.project.demo.Service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +15,18 @@ public class OrderController {
     OrderBillingSystem orderBillingSystem = OrderBillingSystem.getInstance();
     private final OrderService orderService;
 
+    private final ArticleService articleService;
+    private final EmployeeService employeeService;
+
+    private final ClientService clientService;
+
     private final PaymentService paymentService;
 
-    public OrderController(OrderService orderService, PaymentService paymentService) {
+    public OrderController(OrderService orderService, ArticleService articleService, EmployeeService employeeService, ClientService clientService, PaymentService paymentService) {
         this.orderService = orderService;
+        this.articleService = articleService;
+        this.employeeService = employeeService;
+        this.clientService = clientService;
         this.paymentService = paymentService;
     }
 
@@ -97,5 +104,47 @@ public class OrderController {
     @GetMapping("/filterByDate")
     public List<Orders> filterByDate(@RequestParam String date) {
         return orderService.filteredByDate(date);
+    }
+
+    @PostMapping("/{orderId}/addClient")
+    public ResponseEntity<String> addClientToOrder(@PathVariable Long orderId, @RequestBody Long clientId) throws Exception {
+        Orders order = orderService.getOrderById(orderId);
+        Client client = clientService.getClientById(clientId);
+
+        if (order == null || client == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order or Client not found");
+        }
+
+        orderService.addClientToOrder(orderId, client);
+
+        return ResponseEntity.ok("Client added to the order successfully");
+    }
+
+    @PostMapping("/{orderId}/addEmployee")
+    public ResponseEntity<String> addEmployeeToOrder(@PathVariable Long orderId, @RequestBody Long employeeId) throws Exception {
+        Orders order = orderService.getOrderById(orderId);
+        Employee employee = employeeService.getEmployeeById(employeeId);
+
+        if (order == null || employee == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order or Employee not found");
+        }
+
+        orderService.addEmployeeToOrder(orderId, employee);
+
+        return ResponseEntity.ok("Employee added to the order successfully");
+    }
+
+    @PostMapping("/{orderId}/addArticle")
+    public ResponseEntity<String> addArticleToOrder(@PathVariable Long orderId, @RequestBody Long articleId) throws Exception {
+        Orders order = orderService.getOrderById(orderId);
+        Articles article = articleService.getArticleById(articleId);
+
+        if (order == null || article == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order or Article not found");
+        }
+
+        orderService.addArticleToOrder(orderId, article);
+
+        return ResponseEntity.ok("Article added to the order successfully");
     }
 }

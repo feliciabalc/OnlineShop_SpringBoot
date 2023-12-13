@@ -1,8 +1,7 @@
 package map.project.demo.DB_Controller;
 
 import map.project.demo.Entities.*;
-import map.project.demo.Service.CartService;
-import map.project.demo.Service.WarehouseService;
+import map.project.demo.Service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +12,19 @@ import java.util.List;
 @RequestMapping("/api/warehouse")
 public class WarehouseController {
     private final WarehouseService warehouseService;
+    private final EmployeeService employeeService;
+    private final CourierService courierService;
+    private final SupplierService supplierService;
+    private final ArticleService articleService;
 
-    public WarehouseController(WarehouseService warehouseService) {
+    public WarehouseController(WarehouseService warehouseService, EmployeeService employeeService, CourierService courierService, SupplierService supplierService, ArticleService articleService) {
         this.warehouseService = warehouseService;
+        this.employeeService = employeeService;
+        this.courierService = courierService;
+        this.supplierService = supplierService;
+        this.articleService = articleService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Warehouse> getWarehouseById(@PathVariable Long id) {
         Warehouse warehouse= warehouseService.getWarehouseById(id);
@@ -84,5 +92,61 @@ public class WarehouseController {
     @GetMapping("/filterByAddress")
     public List<Warehouse> filteredByAddress(@RequestParam String address) {
         return warehouseService.filteredByAddress(address);
+    }
+
+    @PostMapping("/{warehouseId}/addCourier")
+    public ResponseEntity<String> addCourierToWarehouse(@PathVariable Long warehouseId, @RequestBody Long courierId) throws Exception {
+        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
+        Courier courier = courierService.getCourierById(courierId);
+
+        if (warehouse == null || courier == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Warehouse or Courier not found");
+        }
+
+        warehouseService.addCourierToWarehouse(warehouseId, courier);
+
+        return ResponseEntity.ok("Courier added to the warehouse successfully");
+    }
+
+    @PostMapping("/{warehouseId}/addSupplier")
+    public ResponseEntity<String> addSupplierToWarehouse(@PathVariable Long warehouseId, @RequestBody Long supplierId) throws Exception {
+        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
+        Suppliers supplier = supplierService.getSupplierById(supplierId);
+
+        if (warehouse == null || supplier == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Warehouse or Supplier not found");
+        }
+
+        warehouseService.addSupplierToWarehouse(warehouseId, supplier);
+
+        return ResponseEntity.ok("Supplier added to the warehouse successfully");
+    }
+
+    @PostMapping("/{warehouseId}/addEmployee")
+    public ResponseEntity<String> addEmployeeToWarehouse(@PathVariable Long warehouseId, @RequestBody Long employeeId) throws Exception {
+        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
+        Employee employee = employeeService.getEmployeeById(employeeId);
+
+        if (warehouse == null || employee == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Warehouse or Employee not found");
+        }
+
+        warehouseService.addEmployeeToWarehouse(warehouseId, employee);
+
+        return ResponseEntity.ok("Employee added to the warehouse successfully");
+    }
+
+    @PostMapping("/{warehouseId}/addArticle")
+    public ResponseEntity<String> addArticleToWarehouse(@PathVariable Long warehouseId, @RequestBody Long articleId) throws Exception {
+        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
+        Articles article = articleService.getArticleById(articleId);
+
+        if (warehouse == null || article == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Warehouse or Article not found");
+        }
+
+        warehouseService.addArticleToWarehouse(warehouseId, article);
+
+        return ResponseEntity.ok("Article added to the warehouse successfully");
     }
 }

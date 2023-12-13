@@ -19,7 +19,7 @@ public class Cart {
     @OneToMany(mappedBy = "cart")
     private List<Articles> articles= new ArrayList<>();
 
-    //private List<ClientCartObserver> observers = new ArrayList<>();
+
 
     @OneToOne(mappedBy = "cart")
     private Client client;
@@ -30,15 +30,14 @@ public class Cart {
     }
 
 
-//    public List<ClientCartObserver> getObservers() {
-//        return observers;
-//    }
-//    public void setObservers(List<ClientCartObserver> observers) {
-//        this.observers = observers;
-//    }
-//    public List<ClientCartObserver> getCartObservers(Cart cart) {
-//        return cart.observers;
-//    }
+    public Client getObservers() {
+        setObservers();
+       return this.client;
+    }
+    public void setObservers() {
+        ClientCartObserver  cartObserver = new ClientCartObserver(this.client);
+    }
+
 
 
 
@@ -105,18 +104,11 @@ public class Cart {
 
 
 
-//    public void addObserver(ClientCartObserver observer) {
-//        observers.add(observer);
-//    }
-//
-//    public void removeObserver(ClientCartObserver observer) {
-//        observers.remove(observer);
-//    }
-//
-//    public void notifyObservers(){
-//        for(CartObserver obs: observers)
-//            obs.update(this);
-//    }
+
+    public void notifyObservers(){
+        ClientCartObserver  cartObserver = new ClientCartObserver(this.client);
+            cartObserver.update(this);
+  }
 
 
 }

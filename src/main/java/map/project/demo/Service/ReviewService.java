@@ -53,4 +53,20 @@ public class ReviewService {
     public List<Review> filteredByDate(String date){
         return reviewRepo.filteredByDate(date);
     }
+
+    public void addClientToReview(Long reviewId, Client client) throws Exception {
+        Review review= reviewRepo.findById(reviewId)
+                .orElseThrow(() -> new Exception("Review not found with id " + reviewId));
+
+        review.setClient(client);
+        reviewRepo.save(review);
+    }
+
+    public void addArticleToReview(Long reviewId, Articles article) throws Exception {
+        Review review= reviewRepo.findById(reviewId)
+                .orElseThrow(() -> new Exception("Review not found with id " + reviewId));
+
+        review.setArticle(article);
+        reviewRepo.save(review);
+    }
 }
