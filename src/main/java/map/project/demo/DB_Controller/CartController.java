@@ -1,10 +1,9 @@
 package map.project.demo.DB_Controller;
 
-import map.project.demo.Entities.Articles;
-import map.project.demo.Entities.Cart;
-import map.project.demo.Entities.Client;
-import map.project.demo.Entities.Orders;
+import map.project.demo.Entities.*;
+import map.project.demo.Service.ArticleService;
 import map.project.demo.Service.CartService;
+import map.project.demo.Service.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +14,16 @@ import java.util.List;
 @RequestMapping("/api/cart")
 public class CartController {
     private final CartService cartService;
+    private final ClientService clientService;
 
-    public CartController(CartService cartService) {
+    private final ArticleService articleService;
+
+    public CartController(CartService cartService, ClientService clientService, ArticleService articleService) {
         this.cartService = cartService;
+        this.clientService = clientService;
+        this.articleService = articleService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Cart> getCartById(@PathVariable Long id) {
         Cart cart = cartService.getCartById(id);
@@ -60,6 +65,9 @@ public class CartController {
         if (existingCart != null) {
             updatedCart.setId(id);
             Cart savedCart = cartService.saveCart(updatedCart);
+            ClientCartObserver observer = new ClientCartObserver(savedCart.getObservers());
+            if(observer != null)
+                savedCart.notifyObservers();
             return new ResponseEntity<>(savedCart, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -71,6 +79,34 @@ public class CartController {
         Cart savedCart = cartService.saveCart(newCart);
         return new ResponseEntity<>(savedCart, HttpStatus.OK);
 
+    }
+
+    @PostMapping("/{cartId}/addClient")
+    public ResponseEntity<String> addClientToCart(@PathVariable Long cartId, @RequestBody Long clientId) throws Exception {
+        Cart cart = cartService.getCartById(cartId);
+        Client client = clientService.getClientById(clientId);
+
+        if (cart == null || client == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cart or Client not found");
+        }
+
+        cartService.addClientToCart(cartId, client);
+
+        return ResponseEntity.ok("Client added to the cart successfully");
+    }
+
+    @PostMapping("/{cartId}/addArticle")
+    public ResponseEntity<String> addArticleToCart(@PathVariable Long cartId, @RequestBody Long articleId) throws Exception {
+        Cart cart = cartService.getCartById(cartId);
+        Articles article = articleService.getArticleById(articleId);
+
+        if (cart == null || article == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cart or Article not found");
+        }
+
+        cartService.addArticlesToCart(cartId, article);
+
+        return ResponseEntity.ok("Article added to the cart successfully");
     }
 
 }

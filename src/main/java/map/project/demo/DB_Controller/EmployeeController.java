@@ -3,6 +3,8 @@ package map.project.demo.DB_Controller;
 import map.project.demo.Entities.*;
 import map.project.demo.Service.CartService;
 import map.project.demo.Service.EmployeeService;
+import map.project.demo.Service.OrderService;
+import map.project.demo.Service.WarehouseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +15,15 @@ import java.util.List;
 @RequestMapping("/api/employee")
 public class EmployeeController {
     private final EmployeeService employeeService;
+    private final WarehouseService warehouseService;
+    private final OrderService orderService;
 
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService, WarehouseService warehouseService, OrderService orderService) {
         this.employeeService = employeeService;
+        this.warehouseService = warehouseService;
+        this.orderService = orderService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
         Employee employee = employeeService.getEmployeeById(id);
@@ -75,5 +82,33 @@ public class EmployeeController {
     @GetMapping("/filterByRole")
     public List<Employee> filterByRole(@RequestParam String role) {
         return employeeService.filteredByRole(role);
+    }
+
+    @PostMapping("/{employeeId}/addWarehouse")
+    public ResponseEntity<String> addWarehouseToEmployee(@PathVariable Long employeeId, @RequestBody Long warehouseId) throws Exception {
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
+
+        if (employee == null || warehouse == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee or Warehouse not found");
+        }
+
+        employeeService.addWarehouseToEmployee(employeeId, warehouse);
+
+        return ResponseEntity.ok("Warehouse added to the employee successfully");
+    }
+
+    @PostMapping("/{employeeId}/addOrder")
+    public ResponseEntity<String> addOrderToEmployee(@PathVariable Long employeeId, @RequestBody Long orderId) throws Exception {
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        Orders order = orderService.getOrderById(orderId);
+
+        if (employee == null || order == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee or Order not found");
+        }
+
+        employeeService.addOrderToEmployee(employeeId, order);
+
+        return ResponseEntity.ok("Order added to the employee successfully");
     }
 }

@@ -1,7 +1,9 @@
 package map.project.demo.DB_Controller;
 
 import map.project.demo.Entities.*;
+import map.project.demo.Service.ArticleService;
 import map.project.demo.Service.CartService;
+import map.project.demo.Service.ClientService;
 import map.project.demo.Service.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +16,17 @@ import java.util.List;
 @RequestMapping("/api/review")
 public class ReviewController {
     private final ReviewService reviewService;
+    private final ClientService clientService;
 
-    public ReviewController(ReviewService reviewService) {
+    private final ArticleService articleService;
+
+
+    public ReviewController(ReviewService reviewService, ClientService clientService, ArticleService articleService) {
         this.reviewService = reviewService;
+        this.clientService = clientService;
+        this.articleService = articleService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
         Review review = reviewService.getReviewById(id);
@@ -88,6 +97,34 @@ public class ReviewController {
     @GetMapping("/filterByStars")
     public List<Review> filterByStars(@RequestParam String stars) {
         return reviewService.filteredByStars(stars);
+    }
+
+    @PostMapping("/{reviewId}/addClient")
+    public ResponseEntity<String> addReviewToClient(@PathVariable Long reviewId, @RequestBody Long clientId) throws Exception {
+        Review review = reviewService.getReviewById(reviewId);
+        Client client = clientService.getClientById(clientId);
+
+        if (review == null || client == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Review or Client not found");
+        }
+
+        reviewService.addClientToReview(reviewId, client);
+
+        return ResponseEntity.ok("Client added to the review successfully");
+    }
+
+    @PostMapping("/{reviewId}/addArticle")
+    public ResponseEntity<String> addReviewToOrder(@PathVariable Long reviewId, @RequestBody Long articleId) throws Exception {
+        Review review = reviewService.getReviewById(reviewId);
+        Articles article = articleService.getArticleById(articleId);
+
+        if (review == null || article == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Review or Article not found");
+        }
+
+        reviewService.addArticleToReview(reviewId, article);
+
+        return ResponseEntity.ok("Article added to the review successfully");
     }
 
 }

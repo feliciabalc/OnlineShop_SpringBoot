@@ -1,10 +1,7 @@
 package map.project.demo.Service;
 
 import map.project.demo.DB_Repo.CartRepo;
-import map.project.demo.Entities.Articles;
-import map.project.demo.Entities.Cart;
-import map.project.demo.Entities.Client;
-import map.project.demo.Entities.Review;
+import map.project.demo.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +46,21 @@ public class CartService {
         return cart.getClient();
     }
 
+    public void addClientToCart(Long cartId, Client client) throws Exception {
+        Cart cart = cartRepo.findById(cartId)
+                .orElseThrow(() -> new Exception("Cart not found with id " + cartId));
+
+        cart.setClient(client);
+        cartRepo.save(cart);
+    }
+
+    public void addArticlesToCart(Long cartId, Articles article) throws Exception {
+        Cart cart = cartRepo.findById(cartId)
+                .orElseThrow(() -> new Exception("Cart not found with id " + cartId));
+
+        cart.addArticles(article);
+        cartRepo.save(cart);
+    }
 
 
 }

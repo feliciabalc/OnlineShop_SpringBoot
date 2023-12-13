@@ -2,7 +2,10 @@ package map.project.demo.DB_Controller;
 
 
 import map.project.demo.Entities.*;
+import map.project.demo.Service.CartService;
 import map.project.demo.Service.ClientService;
+import map.project.demo.Service.OrderService;
+import map.project.demo.Service.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +16,18 @@ import java.util.List;
 @RequestMapping("/api/client")
 public class ClientController {
     private final ClientService clientService;
+    private final CartService cartService;
+    private final OrderService orderService;
+    private final ReviewService reviewService;
 
-    public ClientController(ClientService clientService) {
+
+    public ClientController(ClientService clientService, CartService cartService, OrderService orderService, ReviewService reviewService) {
         this.clientService = clientService;
+        this.cartService = cartService;
+        this.orderService = orderService;
+        this.reviewService = reviewService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Client> getClientById(@PathVariable Long id) {
         Client client = clientService.getClientById(id);
@@ -82,6 +93,47 @@ public class ClientController {
     @GetMapping("/filterByName")
     public List<Client> filterByName(@RequestParam String name) {
         return clientService.filteredByName(name);
+    }
+
+    @PostMapping("/{clientId}/addCart")
+    public ResponseEntity<String> addCartToClient(@PathVariable Long clientId, @RequestBody Long cartId) throws Exception {
+        Client client = clientService.getClientById(clientId);
+        Cart cart = cartService.getCartById(cartId);
+
+        if (client == null || cart == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client or Cart not found");
+        }
+
+        clientService.addCartToClient(clientId, cart);
+
+        return ResponseEntity.ok("Cart added to the client successfully");
+    }
+
+    @PostMapping("/{clientId}/addOrder")
+    public ResponseEntity<String> addOrderToClient(@PathVariable Long clientId, @RequestBody Long orderId) throws Exception {
+        Client client = clientService.getClientById(clientId);
+        Orders order = orderService.getOrderById(orderId);
+
+        if (client == null || order == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client or Order not found");
+        }
+
+        clientService.addOrderToClient(clientId, order);
+
+        return ResponseEntity.ok("Order added to the client successfully");
+    }
+    @PostMapping("/{clientId}/addReview")
+    public ResponseEntity<String> addReviewToClient(@PathVariable Long clientId, @RequestBody Long reviewId) throws Exception {
+        Client client = clientService.getClientById(clientId);
+        Review review = reviewService.getReviewById(reviewId);
+
+        if (client == null || review == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client or Review not found");
+        }
+
+        clientService.addReviewToClient(clientId, review);
+
+        return ResponseEntity.ok("Review added to the client successfully");
     }
 
 }

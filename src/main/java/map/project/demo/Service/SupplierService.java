@@ -2,10 +2,7 @@ package map.project.demo.Service;
 
 import map.project.demo.DB_Repo.ReviewRepo;
 import map.project.demo.DB_Repo.SuppliersRepo;
-import map.project.demo.Entities.Employee;
-import map.project.demo.Entities.Review;
-import map.project.demo.Entities.Suppliers;
-import map.project.demo.Entities.Warehouse;
+import map.project.demo.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +44,14 @@ public class SupplierService {
 
     public List<Suppliers> filteredByName(String name) {
         return suppliersRepo.filteredByName(name);
+    }
+
+    public void addWarehouseToSupplier(Long supplierId, Warehouse warehouse) throws Exception {
+        Suppliers supplier = suppliersRepo.findById(supplierId)
+                .orElseThrow(() -> new Exception("Suplier not found with id " + supplierId));
+
+        supplier.setWarehouse(warehouse);
+        suppliersRepo.save(supplier);
     }
 
 }

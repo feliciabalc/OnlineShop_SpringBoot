@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "suppliers")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Suppliers {
     @Id
@@ -12,6 +13,7 @@ public class Suppliers {
     private Long id;
     private  String name;
     private  double telefon;
+    @Column(name = "article_type")
     private String ArticleType;
 
     public Warehouse getWarehouse() {

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Review {
+public class Review implements ReviewComponent{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -67,6 +67,12 @@ public class Review {
 
     public String getComment() {
         return comment;
+    }
+
+    @Override
+    public Boolean verifyStars() {
+        int stars = Integer.parseInt(this.stars.replaceAll("\\D+", ""));
+        return stars > 3;
     }
 
     public void setComment(String comment) {

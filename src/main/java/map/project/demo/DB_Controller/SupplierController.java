@@ -3,6 +3,7 @@ package map.project.demo.DB_Controller;
 import map.project.demo.Entities.*;
 import map.project.demo.Service.CartService;
 import map.project.demo.Service.SupplierService;
+import map.project.demo.Service.WarehouseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,13 @@ import java.util.function.Supplier;
 @RequestMapping("/api/supplier")
 public class SupplierController {
     private final SupplierService supplierService;
+    private final WarehouseService warehouseService;
 
-    public SupplierController(SupplierService supplierService) {
+    public SupplierController(SupplierService supplierService, WarehouseService warehouseService) {
         this.supplierService = supplierService;
+        this.warehouseService = warehouseService;
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Suppliers> getSupplierById(@PathVariable Long id) {
         Suppliers supplier = supplierService.getSupplierById(id);
@@ -70,4 +74,17 @@ public class SupplierController {
         return supplierService.filteredByName(name);
     }
 
+    @PostMapping("/{supplierId}/addWarehouse")
+    public ResponseEntity<String> addWarehouseToSupplier(@PathVariable Long supplierId, @RequestBody Long wareId) throws Exception {
+        Suppliers supplier = supplierService.getSupplierById(supplierId);
+        Warehouse warehouse = warehouseService.getWarehouseById(wareId);
+
+        if (warehouse == null || supplier == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Warehouse or Supplier not found");
+        }
+
+        supplierService.addWarehouseToSupplier(supplierId, warehouse);
+
+        return ResponseEntity.ok("Warehouse added to the supplier successfully");
+    }
 }

@@ -56,4 +56,28 @@ public class OrderService {
     public List<Orders> filteredByDate(String date){
         return orderRepo.filteredByDate(date);
     }
+
+    public void addArticleToOrder(Long orderId, Articles articles) throws Exception {
+        Orders order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new Exception("Order not found with id " + orderId));
+
+        order.addArticle(articles);
+        orderRepo.save(order);
+    }
+
+    public void addClientToOrder(Long orderId, Client client) throws Exception {
+        Orders order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new Exception("Order not found with id " + orderId));
+
+        order.setClient(client);
+        orderRepo.save(order);
+    }
+
+    public void addEmployeeToOrder(Long orderId, Employee employee) throws Exception {
+        Orders order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new Exception("Order not found with id " + orderId));
+
+        order.setEmployee(employee);
+        orderRepo.save(order);
+    }
 }

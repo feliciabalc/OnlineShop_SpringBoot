@@ -47,4 +47,20 @@ public class CourierService {
 
         return courier.getOrders();
     }
+
+    public void addWarehouseToCourier(Long courierId, Warehouse warehouse) throws Exception {
+        Courier courier = courierRepo.findById(courierId)
+                .orElseThrow(() -> new Exception("Courier not found with id " + courierId));
+
+        courier.setWarehouse(warehouse);
+        courierRepo.save(courier);
+    }
+
+    public void addOrderToCourier(Long courierId, Orders order) throws Exception {
+        Courier courier = courierRepo.findById(courierId)
+                .orElseThrow(() -> new Exception("Courier not found with id " + courierId));
+
+        courier.addOrder(order);
+        courierRepo.save(courier);
+    }
 }

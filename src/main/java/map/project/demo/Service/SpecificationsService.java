@@ -47,4 +47,12 @@ public class SpecificationsService {
     public List<Specifications> filteredBySize(String size) {
         return specificationsRepo.filteredBySize(size);
     }
+
+    public void addArticleToSpecification(Long specificationsId, Articles article) throws Exception {
+        Specifications specifications = specificationsRepo.findById(specificationsId)
+                .orElseThrow(() -> new Exception("Specification not found with id " + specificationsId));
+
+        specifications.setArticle(article);
+        specificationsRepo.save(specifications);
+    }
 }
