@@ -272,21 +272,6 @@ GET http://localhost:8080/api/employee/filterByRole?role=billing
 DELETE http://localhost:8080/api/employee/4
 
 ###
-GET http://localhost:8080/api/warehouse
-
-###
-GET http://localhost:8080/api/warehouse/6
-
-###
-POST http://localhost:8080/api/warehouse
-
-###
-PUT http://localhost:8080/api/warehouse/6
-
-###
-DELETE http://localhost:8080/api/warehouse/6
-
-###
 GET http://localhost:8080/api/warehouse/6/suppliers
 
 ###
