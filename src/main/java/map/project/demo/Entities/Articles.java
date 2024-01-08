@@ -1,24 +1,14 @@
 package map.project.demo.Entities;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Articles {
-    public Articles(Long id, String name, String brand, String material, String type, float price) {
-        this.id = id;
-        this.name = name;
-        this.brand = brand;
-        this.material = material;
-        this.type = type;
-        this.price = price;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,23 +19,14 @@ public class Articles {
     private String type;
     private float price;
 
-    protected Articles() {
-
-    }
-
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
     private List<Specifications> specifications = new ArrayList<>();
-
-
-    // The mappedBy attribute specifies the field in the Review entity
-    // that owns the relationship (i.e., the article field in the Review entity).
     @OneToMany(mappedBy = "article")
     @JsonIgnore
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToMany(mappedBy = "articles")
     private List<Orders> orders = new ArrayList<>();
-
 
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
@@ -54,7 +35,17 @@ public class Articles {
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
+    protected Articles() {
 
+    }
+    public Articles(Long id, String name, String brand, String material, String type, float price) {
+        this.id = id;
+        this.name = name;
+        this.brand = brand;
+        this.material = material;
+        this.type = type;
+        this.price = price;
+    }
     public Long getId() {
         return id;
     }

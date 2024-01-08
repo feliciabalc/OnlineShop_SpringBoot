@@ -20,10 +20,6 @@ public class Orders implements OrderComponent {
     private String address;
     private String date;
 
-
-
-
-    // In Orders class
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "article_order",
@@ -31,7 +27,6 @@ public class Orders implements OrderComponent {
             inverseJoinColumns = @JoinColumn(name = "article_id")
     )
     private List<Articles> articles = new ArrayList<>();
-
 
     @ManyToOne
     @JoinColumn(name = "client_id")

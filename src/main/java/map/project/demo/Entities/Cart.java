@@ -15,10 +15,8 @@ public class Cart {
     private Long id;
     private double quantity;
 
-
     @OneToMany(mappedBy = "cart")
     private List<Articles> articles= new ArrayList<>();
-
 
 
     @OneToOne(mappedBy = "cart")

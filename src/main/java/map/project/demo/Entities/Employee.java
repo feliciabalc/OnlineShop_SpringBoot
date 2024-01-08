@@ -22,7 +22,6 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     protected List<Orders> orders= new ArrayList<>();
 
-
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
