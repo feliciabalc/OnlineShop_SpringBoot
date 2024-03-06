@@ -2,9 +2,7 @@
 This application provides an efficient way of purchasing and exploring many clothing items. "It also provides an easy way to 
 search, filter, and order your favorite items using this app.
 
-//mai trebe zis de alea cu addSpec care se leaga de relatiile intre entitatti, service, restu pattern-urilor, 2 teste, trebuie zis de framework....?
-//comentari cod, explica cum useru interactioneaza cu app ca sa indeplineasca ceva task uri, cum e swagger integrat,explica testele
-si cum am testat anumite functionalitati, concluzie
+
 
     ENTITIES
    1.1 Articles:
@@ -175,15 +173,11 @@ Some of the entities have some methods in addition to the JPA Repository, that a
 
     }
 
-    DATABASE
-The repositories save all the data in our Online-Shop database, which is connected to this project.
-
-        screen db
 
     Controller
 In the controller package are a handful of methods for each entity that serves for different functionalities. Each method is implemented
 using the Rest architecture, you can find the endpoints in the Api.http file.
-Some of the important and useful functionalities are:
+Some of the important and useful use-cases are:
 -modifying you cart
         @PutMapping("/{id}")
         public ResponseEntity<Cart> updateCart(@PathVariable Long id, @RequestBody Cart updatedCart) {
@@ -218,6 +212,7 @@ Some of the important and useful functionalities are:
     }
 
 -displaying the reviews, which can be filtered by a specific number of stars
+-writing a review
         @GetMapping("/filterByStars")
         public List<Review> filterByStars(@RequestParam String stars) {
         return reviewService.filteredByStars(stars);
@@ -228,7 +223,8 @@ about each request:
 http://localhost:8080/swagger-ui/index.html
 
         DESIGN PATTERNS
-1. Strategy Pattern
+We implemented some useful design patterns such as:
+    Strategy Pattern
 We implemented the Strategy Pattern, which in this app's case has the purpose of processing a payment based of the client's 
 payment method. We have an interface(you can find it in the Entities package) and two classes CreditCard and CashOnDelievery that
 implements the interface. This pattern is very useful when placing the order.
@@ -245,7 +241,7 @@ implements the interface. This pattern is very useful when placing the order.
 This code is part of the createOrder method. Using this pattern ensures that the client receives a message regarding the
 chosen payment method.
 
-2. Singleton Pattern
+ Singleton Pattern
 Another handy pattern used in this app is the Singleton one. We used this pattern for generating bills when an order is created.
 Since each bill belongs to only one order, this pattern is very convenient. You can find the implementation in the OrderBillingSystem
 class(Entities package). It is used in the createOrder method:
@@ -254,11 +250,34 @@ class(Entities package). It is used in the createOrder method:
         Orders savedOrder = orderService.saveOrder(newOrder);
         orderBillingSystem.generateBill(savedOrder);
 
-3. Proxy Pattern 
 
+        USE CASES
 
-4. Observer pattern
+1.Placing an order:
 
-5. Decorator Pattern
+POST http://localhost:8080/api/order
+{
+"orderNumber": 1233,
+"totalAmount": 140.0,
+"address": "Gruia 57",
+"date": "12.12.2022",
+"articles": [],
+"client": null,
+"employee": null,
+"paymentMethod": "cash"
+}
 
-6. Factory Pattern
+2. Filter articles by a specific brand
+
+GET http://localhost:8080/api/articles/filterByBrand?brand=zara
+
+3. Displaying reviews based on the number of stars(here is used the Proxy pattern for hiding the reviews with less than 
+2 stars when requesting to show all the reviews)
+GET   http://localhost:8080/api/review/filterByStars?stars=5 stars
+
+4.Displaying the specifications of an article
+GET http://localhost:8080/api/specifications/5/articles
+
+5. Display your cart
+GET http://localhost:8080/api/cart/6
+
