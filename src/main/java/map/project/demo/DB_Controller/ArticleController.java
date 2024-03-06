@@ -38,8 +38,6 @@ public class ArticleController {
         return new ResponseEntity<>(articles, HttpStatus.OK);
     }
 
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
         articlesService.deleteArticle(id);
@@ -54,7 +52,6 @@ public class ArticleController {
     public List<Articles> filterByMaterial(@RequestParam String material) {
         return articlesService.filterByMaterial(material);
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<Articles> updateArticle(@PathVariable Long id, @RequestBody Articles updatedArticle) {
@@ -75,15 +72,11 @@ public class ArticleController {
 
     }
 
-
-
-
     @GetMapping("/{articleId}/specifications")
     public ResponseEntity<List<Specifications>> getSpecificationsForArticle(@PathVariable Long articleId) throws Exception {
         List<Specifications> specifications = articlesService.getSpecificationsForArticle(articleId);
         return new ResponseEntity<>(specifications, HttpStatus.OK);
     }
-
 
     @GetMapping("/{articleId}/review")
     public ResponseEntity<List<Review>> getReviewsForArticle(@PathVariable Long articleId) throws Exception {
@@ -91,13 +84,11 @@ public class ArticleController {
         return new ResponseEntity<>(review, HttpStatus.OK);
     }
 
-
     @GetMapping("/{articleId}/orders")
     public ResponseEntity<List<Orders>> getOrdersForArticle(@PathVariable Long articleId) throws Exception {
         List<Orders> order = articlesService.getOrderForArticle(articleId);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
-
 
     @GetMapping("/{articleId}/warehouse")
     public ResponseEntity<Warehouse> getWarehouseForArticle(@PathVariable Long articleId) throws Exception {
@@ -118,8 +109,4 @@ public class ArticleController {
 
         return ResponseEntity.ok("Specification added to the article successfully");
     }
-
-
-
-
 }

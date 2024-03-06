@@ -18,7 +18,6 @@ public class Specifications {
     @ManyToOne
     @JoinColumn(name = "articles_id")
     private Articles article;
-
     public Specifications(Long id, String size, String color, double quantity, boolean availability) {
         this.id = id;
         this.size = size;
@@ -28,7 +27,6 @@ public class Specifications {
     }
 
     protected Specifications() {
-
     }
 
     public Long getId() {
@@ -38,7 +36,6 @@ public class Specifications {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getSize() {
         return size;

@@ -46,6 +46,7 @@ public class Articles {
         this.type = type;
         this.price = price;
     }
+
     public Long getId() {
         return id;
     }

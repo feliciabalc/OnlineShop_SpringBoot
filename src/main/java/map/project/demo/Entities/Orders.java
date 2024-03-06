@@ -37,9 +37,7 @@ public class Orders implements OrderComponent {
     private Employee employee;
 
     protected Orders() {
-
     }
-
 
     public Orders(Long id, double orderNumber, float totalAmount, String PaymentMethod, String Address,
                   String Date) {
@@ -50,11 +48,6 @@ public class Orders implements OrderComponent {
         this.address = Address;
         this.date = Date;
     }
-
-
-
-
-
 
     public Long getId() {
         return id;
@@ -76,7 +69,6 @@ public class Orders implements OrderComponent {
         return totalAmount;
     }
 
-
     public String getPaymentMethod() {
         return PaymentMethod;
     }
@@ -93,11 +85,9 @@ public class Orders implements OrderComponent {
         this.address = address;
     }
 
-
     public void setDate(String date) {
         this.date = date;
     }
-
 
     public List<Articles> getArticles() {
         return articles;
@@ -118,7 +108,6 @@ public class Orders implements OrderComponent {
                 ", date='" + date + '\'' +
                 '}';
     }
-
 
     public Client getClient() {
         return client;

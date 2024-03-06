@@ -17,7 +17,6 @@ public interface EmployeeRepo extends JpaRepository<Employee,Long> {
                 filteredEmployee.add(item);
         }
         return filteredEmployee;
-
     }
 
 }

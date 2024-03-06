@@ -32,7 +32,6 @@ public class Suppliers {
     }
 
     protected Suppliers() {
-
     }
 
     @ManyToOne

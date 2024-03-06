@@ -34,7 +34,6 @@ public class Warehouse {
     }
 
     protected Warehouse() {
-
     }
 
     public Long getId() {

@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WorkersFactory {
-
     public Employee createEmployee(String name, String salary, double telefon, String role) {
         Employee employee = new Employee();
         employee.setName(name);

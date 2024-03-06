@@ -19,7 +19,6 @@ public interface ReviewRepo extends JpaRepository<Review,Long> {
         return filteredReview;
 
     }
-
     default List<Review> filteredByDate(String date) {
         List<Review> review = findAll();
         List<Review> filteredReview = new ArrayList<>();
@@ -28,7 +27,6 @@ public interface ReviewRepo extends JpaRepository<Review,Long> {
                 filteredReview.add(item);
         }
         return filteredReview;
-
     }
 
 }

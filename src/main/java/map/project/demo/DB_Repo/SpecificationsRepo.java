@@ -17,7 +17,6 @@ public interface SpecificationsRepo extends JpaRepository<Specifications,Long> {
                 filteredSpecifications.add(item);
         }
         return filteredSpecifications;
-
     }
 
     default List<Specifications> filteredBySize(String size) {
@@ -31,7 +30,6 @@ public interface SpecificationsRepo extends JpaRepository<Specifications,Long> {
                 }
             }}
         return filteredSpecifications;
-
     }
 
 }

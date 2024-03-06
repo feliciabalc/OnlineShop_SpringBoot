@@ -86,8 +86,6 @@ public class Client{
         this.cart = cart;
     }
 
-
-
     public List<Review> getReview() {
         return reviews;
     }
@@ -125,10 +123,5 @@ public class Client{
                 ", telefon=" + telefon +
                 '}';
     }
-
-
-
-
-
 
 }

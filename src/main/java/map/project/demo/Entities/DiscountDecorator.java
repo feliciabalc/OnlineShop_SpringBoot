@@ -2,7 +2,6 @@ package map.project.demo.Entities;
 
 public class DiscountDecorator implements OrderComponent {
     private final OrderComponent decoratedOrder;
-
     public DiscountDecorator(OrderComponent decoratedOrder) {
         this.decoratedOrder = decoratedOrder;
     }

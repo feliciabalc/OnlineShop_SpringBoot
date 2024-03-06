@@ -17,6 +17,5 @@ public interface WarehouseRepo extends JpaRepository<Warehouse,Long> {
                 filteredWarehouse.add(item);
         }
         return filteredWarehouse;
-
     }
 }

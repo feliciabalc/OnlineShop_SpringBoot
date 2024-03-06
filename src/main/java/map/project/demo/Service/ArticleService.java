@@ -77,5 +77,4 @@ public class ArticleService {
         return article.getWarehouse();
     }
 
-
 }

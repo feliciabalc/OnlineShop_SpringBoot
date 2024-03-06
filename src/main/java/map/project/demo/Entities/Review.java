@@ -87,8 +87,6 @@ public class Review implements ReviewComponent{
         this.date = date;
     }
 
-
-
     @Override
     public String toString() {
         return "Review{" +

@@ -26,7 +26,6 @@ public class Employee {
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 
-
     public Employee(Long id,String name, String salary, double telefon, String role) {
         this.id = id;
         this.name = name;
@@ -36,7 +35,6 @@ public class Employee {
     }
 
     protected Employee() {
-
     }
 
     public Long getId() {
@@ -116,9 +114,4 @@ public class Employee {
                 ", telefon=" + telefon +
                 '}';
     }
-
-
-
-
-
 }

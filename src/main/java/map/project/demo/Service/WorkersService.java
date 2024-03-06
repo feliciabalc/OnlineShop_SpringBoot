@@ -25,5 +25,4 @@ public class WorkersService {
         return workersFactory.createCourier(name, salary, telefon);
     }
 
-
 }

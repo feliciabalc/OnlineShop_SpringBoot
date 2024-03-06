@@ -9,8 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-
 public interface ArticleRepo extends JpaRepository<Articles, Long> {
 
     default List<Articles> findByBrand(String brand){
@@ -31,13 +29,9 @@ public interface ArticleRepo extends JpaRepository<Articles, Long> {
                 filteredArticles.add(item);
         }
         return filteredArticles;
-
-
     }
 
-
     List<Articles> findByMaterial(String material);
-
     Articles save(Articles article);
 
 

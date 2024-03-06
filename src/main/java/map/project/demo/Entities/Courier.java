@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Table(name = "Courier")
 @SequenceGenerator(name = "courier_sequence", sequenceName = "courier_sequence", allocationSize = 1)
@@ -33,7 +32,6 @@ public class Courier extends Employee{
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
-
 
     @Override
     public String toString() {

@@ -18,15 +18,12 @@ public class Cart {
     @OneToMany(mappedBy = "cart")
     private List<Articles> articles= new ArrayList<>();
 
-
     @OneToOne(mappedBy = "cart")
     private Client client;
 
     protected
     Cart() {
-
     }
-
 
     public Client getObservers() {
         setObservers();
@@ -35,10 +32,6 @@ public class Cart {
     public void setObservers() {
         ClientCartObserver  cartObserver = new ClientCartObserver(this.client);
     }
-
-
-
-
 
     public Cart(Long id,double quantity) {
         this.id = id;
@@ -62,7 +55,6 @@ public class Cart {
         this.quantity = quantity;
     }
 
-
     public List<Articles> getArticles() {
         return articles;
     }
@@ -70,8 +62,6 @@ public class Cart {
     public void setArticles(List<Articles> articles) {
         this.articles = articles;
     }
-
-
 
     public void addArticles(Articles article){
         articles.add(article);
@@ -82,7 +72,6 @@ public class Cart {
         articles.remove(article);
         client.setCart(null);
     }
-
 
     @Override
     public String toString() {
@@ -101,12 +90,9 @@ public class Cart {
     }
 
 
-
-
     public void notifyObservers(){
         ClientCartObserver  cartObserver = new ClientCartObserver(this.client);
             cartObserver.update(this);
   }
-
 
 }

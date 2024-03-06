@@ -179,6 +179,7 @@ In the controller package are a handful of methods for each entity that serves f
 using the Rest architecture, you can find the endpoints in the Api.http file.
 Some of the important and useful use-cases are:
 -modifying you cart
+       
         @PutMapping("/{id}")
         public ResponseEntity<Cart> updateCart(@PathVariable Long id, @RequestBody Cart updatedCart) {
         Cart existingCart = cartService.getCartById(id);
@@ -191,6 +192,7 @@ Some of the important and useful use-cases are:
         }
         }
 -reading the reviews for an article with an id given by the user
+        
         @GetMapping("/{articleId}/review")
         public ResponseEntity<List<Review>> getReviewsForArticle(@PathVariable Long articleId) throws Exception {
         List<Review> review = articleService.getReviewForArticle(articleId);
@@ -213,6 +215,7 @@ Some of the important and useful use-cases are:
 
 -displaying the reviews, which can be filtered by a specific number of stars
 -writing a review
+        
         @GetMapping("/filterByStars")
         public List<Review> filterByStars(@RequestParam String stars) {
         return reviewService.filteredByStars(stars);
@@ -229,13 +232,13 @@ We implemented the Strategy Pattern, which in this app's case has the purpose of
 payment method. We have an interface(you can find it in the Entities package) and two classes CreditCard and CashOnDelievery that
 implements the interface. This pattern is very useful when placing the order.
 
-   PaymentStrategy paymentStrategy = null;
-   if ("card".equals(savedOrder.getPaymentMethod())) {
-   paymentStrategy = new CreditCardPaymentStrategy();
-   } else if ("cash".equals(savedOrder.getPaymentMethod()))
-   paymentStrategy = new CashOnDelieveryStrategy();
-   if (paymentStrategy != null)
-       paymentService.processPayment(savedOrder, paymentStrategy);
+       PaymentStrategy paymentStrategy = null;
+       if ("card".equals(savedOrder.getPaymentMethod())) {
+       paymentStrategy = new CreditCardPaymentStrategy();
+       } else if ("cash".equals(savedOrder.getPaymentMethod()))
+       paymentStrategy = new CashOnDelieveryStrategy();
+       if (paymentStrategy != null)
+           paymentService.processPayment(savedOrder, paymentStrategy);
 
 
 This code is part of the createOrder method. Using this pattern ensures that the client receives a message regarding the
@@ -251,7 +254,7 @@ class(Entities package). It is used in the createOrder method:
         orderBillingSystem.generateBill(savedOrder);
 
 
-        USE CASES
+USE CASES:
 
 1.Placing an order:
 

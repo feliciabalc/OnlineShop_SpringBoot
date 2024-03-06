@@ -17,7 +17,4 @@ public class OrderBillingSystem {
         System.out.println("Generating bill for " + orders.getId());
     }
 
-
-
-
 }

@@ -32,5 +32,4 @@ public class ReviewProxy implements ReviewComponent  {
         return false;
     }
 
-
 }

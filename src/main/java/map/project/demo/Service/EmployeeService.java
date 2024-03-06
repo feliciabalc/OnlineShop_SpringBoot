@@ -33,8 +33,6 @@ public class EmployeeService {
         employeeRepo.deleteById(id);
     }
 
-
-
     public Warehouse getWarehouseForEmployee(Long employeeId) throws Exception {
         Employee employee = employeeRepo.findById(employeeId)
                 .orElseThrow(() -> new Exception("Employee not found with id " + employeeId));
@@ -48,7 +46,6 @@ public class EmployeeService {
 
         return employee.getOrders();
     }
-
 
     public List<Employee> filteredByRole(String role){
         return employeeRepo.filteredByRole(role);

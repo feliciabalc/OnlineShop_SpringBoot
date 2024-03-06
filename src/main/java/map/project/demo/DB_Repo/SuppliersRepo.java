@@ -17,8 +17,5 @@ public interface SuppliersRepo extends JpaRepository<Suppliers,Long> {
                 filteredSuppliers.add(item);
         }
         return filteredSuppliers;
-
     }
-
-
 }
